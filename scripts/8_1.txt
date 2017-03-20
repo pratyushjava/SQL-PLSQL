@@ -1,0 +1,22 @@
+create or replace procedure comp_intr(p number,r number,y number)
+is
+interst number;
+total number;
+prod number:=1;
+begin
+ for i in 1..y
+ loop
+ prod:=prod*(1+r);
+ end loop;
+ interst:=(p*prod)-p;
+ total:=p+interst;
+ insert into temp23(interest,totalamnt) values(interst,total);
+ commit;
+end;
+declare
+princ number;
+rate number;
+tim number;
+begin
+ comp_intr(:price,:rate,:tim);
+end;

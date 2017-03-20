@@ -1,0 +1,28 @@
+create or replace function age_calc3(v_date date,v_day1 out number,v_month1 out number)
+return number
+is
+v_year number;
+v_month number;
+v_days number;
+v_rem number;
+begin
+v_year:=trunc(months_between(sysdate,v_date)/12);
+v_rem:=trunc(mod((sysdate-v_date),365));
+v_month:=mod(trunc(months_between(sysdate,v_date)),12);
+v_days:=trunc(mod(v_rem,30));
+v_day1:=v_days
+v_month1:=v_month;
+dbms_output.put_line(v_month1);
+return v_year;
+end;
+declare 
+  dd date;
+  v_year number;
+  v_days number;
+  v_month number;
+begin
+  v_year:=age_calc3(:dd,v_days,v_month);
+  dbms_output.put_line(v_year||' years, '||v_month||' months, '||v_days|| ' days, ');
+ end;
+select months_between(sysdate,'02-Oct-2011') from dual;
+select 

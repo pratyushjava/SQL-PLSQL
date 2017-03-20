@@ -1,0 +1,25 @@
+create function valid_triangle ( s1 number,s2 number,s3 number)
+return boolean
+is 
+
+begin
+if (s1 < s2+ s3 or s3 <s1 + s2 or s2 <s1 + s2) then
+  return true;
+else
+  return false;
+end if;
+end;
+--------------------------------------------------------
+declare 
+ v_res boolean;
+ v_s1 number;
+ v_s2 number;
+ v_s3 number;
+begin
+v_res:=valid_triangle(:v_s1,:v_s2,:v_s3);
+if(v_res=true) then
+  dbms_output.put_line('valid triangle');
+else
+  dbms_output.put_line('invalid triangle');
+end if;
+end;

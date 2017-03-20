@@ -1,0 +1,19 @@
+create or replace function age_calc(dob in date,mon out number,day out number) return number
+as
+age number(10);
+begin
+age:=trunc(MONTHS_BETWEEN(SYSDATE,dob)/12);
+mon:=trunc(mod(months_between(sysdate,dob),12));
+day:=mod(sysdate-dob,30)-6;
+return age;
+end;
+
+declare
+age number(10);
+mon number(10);
+day number(10);
+begin
+age:=age_calc('01-Mar-1989',mon,day);
+dbms_output.put_line(age||'  '||mon||'  '||day);
+end;
+select (trunc(mod(months_between(sysdate,'02-AUG-2012'),12)) from dual;
