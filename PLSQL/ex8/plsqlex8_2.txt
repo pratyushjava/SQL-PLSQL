@@ -1,0 +1,827 @@
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_2.sql
+
+Warning: Function created with compilation errors.
+
+SQL> show errors
+Errors for FUNCTION AGE_CALC:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+7/9      PL/SQL: Statement ignored                                              
+7/9      PLS-00201: identifier 'YEAR' must be declared                          
+8/9      PL/SQL: Statement ignored                                              
+8/9      PLS-00201: identifier 'TEMP' must be declared                          
+10/9     PL/SQL: Statement ignored                                              
+10/19    PLS-00201: identifier 'TEMP' must be declared                          
+11/2     PL/SQL: Statement ignored                                              
+11/9     PLS-00201: identifier 'YEAR' must be declared                          
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_2.sql
+
+Function created.
+
+SQL> begin
+  2  
+  3  
+  4  
+  5  
+  6  .
+SQL> ed/
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+Enter value for dob: 23-feb-90
+old   3: 	dob date:=&dob;
+new   3: 	dob date:=23-feb-90;
+
+Warning: Procedure created with compilation errors.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+Enter value for dob: 23-feb-90
+old   3: 	dob date:='&dob';
+new   3: 	dob date:='23-feb-90';
+
+Warning: Procedure created with compilation errors.
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+Enter value for dob: 23-feb-1990
+old   3: 	dob date:='&dob';
+new   3: 	dob date:='23-feb-1990';
+
+Warning: Procedure created with compilation errors.
+
+SQL> show errors
+Errors for PROCEDURE EMP_DOB:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+8/2      PL/SQL: SQL Statement ignored                                          
+8/9      PL/SQL: ORA-00904: "CAL_AGE": invalid identifier                       
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+Enter value for dob: 23-feb-90
+old   3: 	dob date:='&dob';
+new   3: 	dob date:='23-feb-90';
+
+Procedure created.
+
+SQL> set serveroutput on
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+Enter value for dob: 23-feb-90
+old   3: 	dob date:='&dob';
+new   3: 	dob date:='23-feb-90';
+
+Procedure created.
+
+SQL> exec emp_age
+BEGIN emp_age; END;
+
+      *
+ERROR at line 1:
+ORA-06550: line 1, column 7: 
+PLS-00201: identifier 'EMP_AGE' must be declared 
+ORA-06550: line 1, column 7: 
+PL/SQL: Statement ignored 
+
+
+SQL> exec emp_dob
+BEGIN emp_dob; END;
+
+*
+ERROR at line 1:
+ORA-06572: Function AGE_CALC has out arguments 
+ORA-06512: at "ORAD41.EMP_DOB", line 8 
+ORA-06512: at line 1 
+
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+Enter value for dob: 23-feb-90
+old   3: 	dob date:='&dob';
+new   3: 	dob date:='23-feb-90';
+
+Procedure created.
+
+SQL> exec emp_dob
+22years 1 months 13.481145833333333333333333333333333333 days                   
+
+PL/SQL procedure successfully completed.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_2.sql
+
+Function created.
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlexproc8_2.sql
+Enter value for dob: 23-feb-90
+old   3: 	dob date:='&dob';
+new   3: 	dob date:='23-feb-90';
+
+Procedure created.
+
+SQL> exec emp_dob
+22years 1 months 13 days                                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> select month_between(sysdate-'23-feb-90')
+  2  ;
+
+*
+ERROR at line 2:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select month_between(sysdate-'23-feb-90') from dual;
+select month_between(sysdate-'23-feb-90') from dual
+       *
+ERROR at line 1:
+ORA-00904: "MONTH_BETWEEN": invalid identifier 
+
+
+SQL> select months_between(sysdate-'23-feb-90') from dual;
+select months_between(sysdate-'23-feb-90') from dual
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> select months_between(sysdate-to_date('23-feb-90')) from dual;
+select months_between(sysdate-to_date('23-feb-90')) from dual
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> select months_between(sysdate - to_date('23-feb-90')) from dual;
+select months_between(sysdate - to_date('23-feb-90')) from dual
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> select months_between(to_date('01-apr-2012') - to_date('23-feb-90')) from dual;
+select months_between(to_date('01-apr-2012') - to_date('23-feb-90')) from dual
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> select months_between(to_date('01-apr-2012') - to_date('23-feb-90')) from dual;
+select months_between(to_date('01-apr-2012') - to_date('23-feb-90')) from dual
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\egpackage.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\egpackage.sql"
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\egpackage.sql
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\egpackage.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\egpackage.sql"
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+ 40  
+ 41  
+ 42  
+ 43  
+ 44  
+ 45  .
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+ 40  
+ 41  
+ 42  
+ 43  
+ 44  
+ 45  
+ 46  
+ 47  
+ 48  .
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+ 40  
+ 41  
+ 42  
+ 43  
+ 44  
+ 45  
+ 46  
+ 47  
+ 48  
+ 49  
+ 50  
+ 51  
+ 52  
+ 53  
+ 54  
+ 55  
+ 56  
+ 57  
+ 58  .
+SQL> CREATE or replace PACKAGE calc
+  2  IS
+  3    FUNCTIOn SUM(var NUMBER,var2 NUMBER)
+  4    RETURN NUMBER;
+  5  
+  6    FUNCTIOn SUM(var NUMBER,var2 NUMBER,Var3 number)
+  7    RETURN NUMBER ;
+  8  END calc;
+  9  /
+
+Package created.
+
+SQL> CREATE PACKAGE BODY calc
+  2  IS
+  3  
+  4  	FUNCTIOn SUM(var NUMBER,var2 NUMBER)
+  5  	RETURN NUMBER
+  6  	IS
+  7  
+  8  	BEGIN
+  9  	  RETURN var+var1;
+ 10  	END;
+ 11  
+ 12  	FUNCTIOn SUM(var NUMBER,var2 NUMBER,
+ 13                               Var3 number)
+ 14  	RETURN NUMBER
+ 15  	IS
+ 16  
+ 17  	BEGIN
+ 18  	  RETURN var+var1+var3;
+ 19  	END;
+ 20  end;
+ 21  /
+
+Warning: Package Body created with compilation errors.
+
+SQL> show error
+Errors for PACKAGE BODY CALC:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+9/4      PL/SQL: Statement ignored                                              
+9/15     PLS-00201: identifier 'VAR1' must be declared                          
+18/4     PL/SQL: Statement ignored                                              
+18/15    PLS-00201: identifier 'VAR1' must be declared                          
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\eqpackage.sql
+ 40  
+ 41  .
+SQL> CREATE PACKAGE BODY calc
+  2  IS
+  3  	FUNCTIOn SUM(var NUMBER,var2 NUMBER)
+  4  	RETURN NUMBER
+  5  	IS
+  6  
+  7  	BEGIN
+  8  	  RETURN var+var2;
+  9  	END;
+ 10  	FUNCTIOn SUM(var NUMBER,var2 NUMBER,
+ 11                               Var3 number)
+ 12  	RETURN NUMBER
+ 13  	IS
+ 14  
+ 15  	BEGIN
+ 16  	  RETURN var+var2+var3;
+ 17  	END;
+ 18  end;
+ 19  /
+CREATE PACKAGE BODY calc
+                    *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> CREATE or PACKAGE BODY calc
+  2  .
+SQL> CREATE or replace PACKAGE BODY calc
+  2  IS
+  3  	FUNCTIOn SUM(var NUMBER,var2 NUMBER)
+  4  	RETURN NUMBER
+  5  	IS
+  6  	BEGIN
+  7  	  RETURN var+var2;
+  8  	END;
+  9  	FUNCTIOn SUM(var NUMBER,var2 NUMBER,
+ 10                               Var3 number)
+ 11  	RETURN NUMBER
+ 12  	IS
+ 13  	BEGIN
+ 14  	  RETURN var+var2+var3;
+ 15  	END;
+ 16  end;
+ 17  /
+
+Package body created.
+
+SQL> select calc.sum(2,3) from dual;
+
+CALC.SUM(2,3)                                                                   
+-------------                                                                   
+            5                                                                   
+
+SQL> select calc.sum(2,3,5) from dual;
+
+CALC.SUM(2,3,5)                                                                 
+---------------                                                                 
+             10                                                                 
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+THIRDORDERS                    VIEW                                             
+TEMPP                          TABLE                                            
+TEMPII                         TABLE                                            
+SPJ                            TABLE                                            
+SEMP                           TABLE                                            
+SDEPT                          TABLE                                            
+SCHOOL                         TABLE                                            
+SALESPEOPLENEW                 TABLE                                            
+SALESPEOPLE                    TABLE                                            
+SALESCITY                      VIEW                                             
+S                              TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+RESULT                         TABLE                                            
+PROD_SALE                      TABLE                                            
+PROD_MST                       TABLE                                            
+P                              TABLE                                            
+ORD_MST                        TABLE                                            
+ORD_DT1                        TABLE                                            
+ORDERSNEW                      TABLE                                            
+ORDERS                         TABLE                                            
+NULLCITIES                     VIEW                                             
+MULTICUSTOMER                  VIEW                                             
+MULTICUST                      TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+MAX_RATING                     VIEW                                             
+J                              TABLE                                            
+INVENTORY                      TABLE                                            
+GRNTCUST                       VIEW                                             
+ENTRYORDERS                    VIEW                                             
+EMP_GROSS                      TABLE                                            
+EMPLOY                         TABLE                                            
+EMP1                           TABLE                                            
+EMP                            TABLE                                            
+DAILYORDERS                    VIEW                                             
+CUSTPURCHASE                   TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+CUSTOTALS                      VIEW                                             
+CUSTOMERS                      TABLE                                            
+CUSTOMER                       TABLE                                            
+COMMISSIONS                    VIEW                                             
+CITYORDERS                     TABLE                                            
+BIN$ehH1GQTDTCeRMNNk9c3MRQ==$0 TABLE                                            
+BIN$YZeLIKkkSXWMi5qRYW/Bgg==$0 TABLE                                            
+BIN$7S2NYntgT2+pnJ6g5Kpe2w==$0 TABLE                                            
+BILL_NEW                       TABLE                                            
+BILL                           TABLE                                            
+AVGSUMORDERS                   VIEW                                             
+
+44 rows selected.
+
+SQL> select * from semp;
+
+no rows selected
+
+SQL> select * from employ;
+
+EMPN EMP_NAME                       DESIGNATIO C  BASIC_SAL                     
+---- ------------------------------ ---------- - ----------                     
+106  suuny                          developer  J       8000                     
+107  lorry                          tester     J       8000                     
+108  korry                          tester     J      18000                     
+101  nani                           manager    J       2000                     
+102  bunny                          ceo        S       5000                     
+103  sunnt                          hr         W       8000                     
+104  lucky                          watchman   W       1000                     
+105  rohan                          scientist  S       9000                     
+
+8 rows selected.
+
+SQL> alter table employ
+  2  add deptno number;
+
+Table altered.
+
+SQL> update employ
+  2  set deptno=10
+  3  where empno=106;
+
+1 row updated.
+
+SQL> update employ
+  2  set deptno=20
+  3  where empno=107;
+
+1 row updated.
+
+SQL> update employ
+  2  set deptno=10
+  3  where empno=108;
+
+1 row updated.
+
+SQL> update employ
+  2  set deptno=30
+  3  where empno=101;
+
+1 row updated.
+
+SQL> update employ
+  2  set deptno=20
+  3  where empno=102;
+
+1 row updated.
+
+SQL> update employ
+  2  set deptno=10
+  3  where empno=103;
+
+1 row updated.
+
+SQL> update employ
+  2  set deptno=30
+  3  where empno=104;
+
+1 row updated.
+
+SQL> update employ
+  2  set deptno=40
+  3  where empno=105;
+
+1 row updated.
+
+SQL> select * from employ;
+
+EMPN EMP_NAME                       DESIGNATIO C  BASIC_SAL     DEPTNO          
+---- ------------------------------ ---------- - ---------- ----------          
+106  suuny                          developer  J       8000         10          
+107  lorry                          tester     J       8000         20          
+108  korry                          tester     J      18000         10          
+101  nani                           manager    J       2000         30          
+102  bunny                          ceo        S       5000         20          
+103  sunnt                          hr         W       8000         10          
+104  lucky                          watchman   W       1000         30          
+105  rohan                          scientist  S       9000         40          
+
+8 rows selected.
+
+SQL> ed\
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3pack.sql
+
+Package created.
+
+SQL> ed\
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3body.sql
+
+Warning: Package Body created with compilation errors.
+
+SQL> show error
+Errors for PACKAGE BODY PAYROLL_CALC:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+3/12     PLS-00323: subprogram or cursor 'DA' is declared in a package          
+         specification and must be defined in the package body                  
+                                                                                
+4/12     PLS-00323: subprogram or cursor 'HRA' is declared in a package         
+         specification and must be defined in the package body                  
+                                                                                
+5/12     PLS-00323: subprogram or cursor 'GROSS' is declared in a package       
+         specification and must be defined in the package body                  
+                                                                                
+6/12     PLS-00323: subprogram or cursor 'TAX' is declared in a package         
+         specification and must be defined in the package body                  
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+                                                                                
+7/12     PLS-00323: subprogram or cursor 'NET' is declared in a package         
+         specification and must be defined in the package body                  
+                                                                                
+26/3     PL/SQL: Statement ignored                                              
+26/3     PLS-00321: expression 'GROSS' is inappropriate as the left hand        
+         side of an assignment statement                                        
+                                                                                
+40/4     PL/SQL: Statement ignored                                              
+40/4     PLS-00321: expression 'TAX' is inappropriate as the left hand          
+         side of an assignment statement                                        
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+                                                                                
+47/3     PL/SQL: Statement ignored                                              
+47/3     PLS-00321: expression 'NET' is inappropriate as the left hand          
+         side of an assignment statement                                        
+                                                                                
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3pack.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3pack.sql
+
+Package created.
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3body.sql
+
+Warning: Package Body created with compilation errors.
+
+SQL> show error
+Errors for PACKAGE BODY PAYROLL_CALC:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+26/3     PL/SQL: Statement ignored                                              
+26/3     PLS-00321: expression 'GROSS' is inappropriate as the left hand        
+         side of an assignment statement                                        
+                                                                                
+40/4     PL/SQL: Statement ignored                                              
+40/4     PLS-00321: expression 'TAX' is inappropriate as the left hand          
+         side of an assignment statement                                        
+                                                                                
+47/3     PL/SQL: Statement ignored                                              
+47/3     PLS-00321: expression 'NET' is inappropriate as the left hand          
+         side of an assignment statement                                        
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+                                                                                
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3body.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3body.sql
+
+Package body created.
+
+SQL> begin
+  2  for i in select * from employ
+  3  loop
+  4  	da(i.basic_sal,i.designation,da);
+  5  	hra(i.basic_sal,i.deptno,hra);
+  6  	gross(i.basic_sal,da,hra,gross);
+  7  	net(gross,tax,net)
+  8  .
+SQL> declare
+  2  da number;
+  3  hra number;
+  4  gross number;
+  5  tax number;
+  6  net number;
+  7  begin
+  8  for i in select * from employ
+  9  loop
+ 10  	da(i.basic_sal,i.designation,da);
+ 11  	hra(i.basic_sal,i.deptno,hra);
+ 12  	gross(i.basic_sal,da,hra,gross);
+ 13  	tax(gross,tax);
+ 14  	net(gross,tax,net)
+ 15  ;
+ 16  	dbms_output.put_line('************************************************');
+ 17  	dbms_output.put_line('name: '||i.emp_name||' designation '||i.designation||' dept no '||i.deptno);
+ 18  	dbms_output.put_line('salary: '||i.basic_sal||' da: '||da||' hra: '||hra||' gross: '||gross||' tax '||tax||' net '||net);
+ 19  	dbms_output.put_line('************************************************');
+ 20  end loop;
+ 21  end;
+ 22  /
+for i in select * from employ
+         *
+ERROR at line 8:
+ORA-06550: line 8, column 10: 
+PLS-00103: Encountered the symbol "SELECT" when expecting one of the following: 
+( - + case mod new null <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> 
+reverse continue avg count current max min prior sql stddev 
+sum variance execute forall merge <a SQL statement> time 
+timestamp interval date 
+<a string literal with character set specification> 
+<a number> <a single-quoted SQL string> pipe 
+<an alternatively-quoted string literal with character set specificatio 
+ORA-06550: line 10, column 2: 
+PLS-00103: Encountered the symbol "DA" when expecting one of the following: 
+) , for group having intersect minus order start union where 
+connect 
+The symbol "having" was substituted for "DA" to continue. 
+ORA-06550: line 10, column 34: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+. ( ) * % & = - + < / > at for in is mod remainder not rem 
+<an exponent (**)> <> or != or ~= >= <= <> and or like like2 
+like4
+
+
+SQL> declare
+  2  da number;
+  3  hra number;
+  4  gross number;
+  5  tax number;
+  6  net number;
+  7  begin
+  8  for i in (select * from employ)
+  9  loop
+ 10  	da(i.basic_sal,i.designation,da);
+ 11  	hra(i.basic_sal,i.deptno,hra);
+ 12  	gross(i.basic_sal,da,hra,gross);
+ 13  	tax(gross,tax);
+ 14  	net(gross,tax,net)
+ 15  ;
+ 16  	dbms_output.put_line('************************************************');
+ 17  	dbms_output.put_line('name: '||i.emp_name||' designation '||i.designation||' dept no '||i.deptno);
+ 18  	dbms_output.put_line('salary: '||i.basic_sal||' da: '||da||' hra: '||hra||' gross: '||gross||' tax '||tax||' net '||net);
+ 19  	dbms_output.put_line('************************************************');
+ 20  end loop;
+ 21  end;
+ 22  /
+	da(i.basic_sal,i.designation,da);
+	*
+ERROR at line 10:
+ORA-06550: line 10, column 2: 
+PLS-00221: 'DA' is not a procedure or is undefined 
+ORA-06550: line 10, column 2: 
+PL/SQL: Statement ignored 
+ORA-06550: line 11, column 2: 
+PLS-00221: 'HRA' is not a procedure or is undefined 
+ORA-06550: line 11, column 2: 
+PL/SQL: Statement ignored 
+ORA-06550: line 12, column 2: 
+PLS-00221: 'GROSS' is not a procedure or is undefined 
+ORA-06550: line 12, column 2: 
+PL/SQL: Statement ignored 
+ORA-06550: line 13, column 2: 
+PLS-00221: 'TAX' is not a procedure or is undefined 
+ORA-06550: line 13, column 2: 
+PL/SQL: Statement ignored 
+ORA-06550: line 14, column 2: 
+PLS-00221: 'NET' is not a procedure or is undefined 
+ORA-06550: line 14, column 2: 
+PL/SQL: Statement ignored 
+
+
+SQL> declare
+  2  da number;
+  3  hra number;
+  4  gross number;
+  5  tax number;
+  6  net number;
+  7  begin
+  8  for i in select * from employ
+  9  loop
+ 10  	payroll_calc.da(i.basic_sal,i.designation,da);
+ 11  	payroll_calc.hra(i.basic_sal,i.deptno,hra);
+ 12  	payroll_calc.gross(i.basic_sal,da,hra,gross);
+ 13  	payroll_calc.tax(gross,tax);
+ 14  	payroll_calc.net(gross,tax,net);
+ 15  	dbms_output.put_line('************************************************');
+ 16  	dbms_output.put_line('name: '||i.emp_name||' designation '||i.designation||' dept no '||i.deptno);
+ 17  	dbms_output.put_line('salary: '||i.basic_sal||' da: '||da||' hra: '||hra||' gross: '||gross||' tax '||tax||' net '||net);
+ 18  	dbms_output.put_line('************************************************');
+ 19  end loop;
+ 20  end;
+ 21  /
+for i in select * from employ
+         *
+ERROR at line 8:
+ORA-06550: line 8, column 10: 
+PLS-00103: Encountered the symbol "SELECT" when expecting one of the following: 
+( - + case mod new null <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> 
+reverse continue avg count current max min prior sql stddev 
+sum variance execute forall merge <a SQL statement> time 
+timestamp interval date 
+<a string literal with character set specification> 
+<a number> <a single-quoted SQL string> pipe 
+<an alternatively-quoted string literal with character set specificatio 
+ORA-06550: line 10, column 2: 
+PLS-00103: Encountered the symbol "PAYROLL_CALC" when expecting one of the 
+following: 
+) , for group having intersect minus order start union where 
+connect 
+The symbol "having" was substituted for "PAYROLL_CALC" to continue. 
+ORA-06550: line 10, column 47: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+. ( ) * % & = - + < / > at for in is mod remainder not rem 
+<an exponent (**)> <> or != or ~= >= <= <> and or
+
+
+SQL> declare
+  2  da number;
+  3  hra number;
+  4  gross number;
+  5  tax number;
+  6  net number;
+  7  begin
+  8  for i in (select * from employ)
+  9  loop
+ 10  	payroll_calc.da(i.basic_sal,i.designation,da);
+ 11  	payroll_calc.hra(i.basic_sal,i.deptno,hra);
+ 12  	payroll_calc.gross(i.basic_sal,da,hra,gross);
+ 13  	payroll_calc.tax(gross,tax);
+ 14  	payroll_calc.net(gross,tax,net);
+ 15  	dbms_output.put_line('************************************************');
+ 16  	dbms_output.put_line('name: '||i.emp_name||' designation '||i.designation||' dept no '||i.deptno);
+ 17  	dbms_output.put_line('salary: '||i.basic_sal||' da: '||da||' hra: '||hra||' gross: '||gross||' tax '||tax||' net '||net);
+ 18  	dbms_output.put_line('************************************************');
+ 19  end loop;
+ 20  end;
+ 21  /
+************************************************                                
+name: suuny designation developer dept no 10                                    
+salary: 8000 da: 400 hra: 1600 gross: 10000 tax 400 net 9600                    
+************************************************                                
+************************************************                                
+name: lorry designation tester dept no 20                                       
+salary: 8000 da: 400 hra: 560 gross: 8960 tax 327.2 net 8632.8                  
+************************************************                                
+************************************************                                
+name: korry designation tester dept no 10                                       
+salary: 18000 da: 900 hra: 3600 gross: 22500 tax 1275 net 21225                 
+************************************************                                
+************************************************                                
+name: nani designation manager dept no 30                                       
+salary: 2000 da: 200 hra: 140 gross: 2340 tax 0 net 2340                        
+************************************************                                
+************************************************                                
+name: bunny designation ceo dept no 20                                          
+salary: 5000 da: 250 hra: 350 gross: 5600 tax 92 net 5508                       
+************************************************                                
+************************************************                                
+name: sunnt designation hr dept no 10                                           
+salary: 8000 da: 400 hra: 1600 gross: 10000 tax 400 net 9600                    
+************************************************                                
+************************************************                                
+name: lucky designation watchman dept no 30                                     
+salary: 1000 da: 50 hra: 70 gross: 1120 tax 0 net 1120                          
+************************************************                                
+************************************************                                
+name: rohan designation scientist dept no 40                                    
+salary: 9000 da: 450 hra: 630 gross: 10080 tax 405.6 net 9674.4                 
+************************************************                                
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex8\plsqlex8_3payslip.sql
+
+Procedure created.
+
+SQL> exec proc_employ_payslip
+************************************************************                    
+name: suuny designation: developer dept no: 10                                  
+salary: 8000 da: 400 hra: 1600 gross: 10000 tax  net                            
+************************************************************                    
+************************************************************                    
+name: lorry designation: tester dept no: 20                                     
+salary: 8000 da: 400 hra: 560 gross: 8960 tax  net                              
+************************************************************                    
+************************************************************                    
+name: korry designation: tester dept no: 10                                     
+salary: 18000 da: 900 hra: 3600 gross: 22500 tax  net                           
+************************************************************                    
+************************************************************                    
+name: nani designation: manager dept no: 30                                     
+salary: 2000 da: 200 hra: 140 gross: 2340 tax  net                              
+************************************************************                    
+************************************************************                    
+name: bunny designation: ceo dept no: 20                                        
+salary: 5000 da: 250 hra: 350 gross: 5600 tax  net                              
+************************************************************                    
+************************************************************                    
+name: sunnt designation: hr dept no: 10                                         
+salary: 8000 da: 400 hra: 1600 gross: 10000 tax  net                            
+************************************************************                    
+************************************************************                    
+name: lucky designation: watchman dept no: 30                                   
+salary: 1000 da: 50 hra: 70 gross: 1120 tax  net                                
+************************************************************                    
+************************************************************                    
+name: rohan designation: scientist dept no: 40                                  
+salary: 9000 da: 450 hra: 630 gross: 10080 tax  net                             
+************************************************************                    
+
+PL/SQL procedure successfully completed.
+
+SQL> spool off;

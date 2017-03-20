@@ -1,0 +1,72 @@
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\plsqlex7_7.sql
+
+Warning: Function created with compilation errors.
+
+SQL> show error
+Errors for FUNCTION FUN_REV_STR:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+4/6      PLS-00215: String length constraints must be in range (1 ..            
+         32767)                                                                 
+                                                                                
+7/2      PL/SQL: Statement ignored                                              
+7/2      PLS-00201: identifier 'LENT' must be declared                          
+8/2      PL/SQL: Statement ignored                                              
+8/14     PLS-00201: identifier 'LENT' must be declared                          
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\plsqlex7_7.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\plsqlex7_7.sql
+
+Warning: Function created with compilation errors.
+
+SQL> show error
+Errors for FUNCTION FUN_REV_STR:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+4/6      PLS-00215: String length constraints must be in range (1 ..            
+         32767)                                                                 
+                                                                                
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\plsqlex7_7.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\plsqlex7_7.sql
+
+Function created.
+
+SQL> select fun_rev_str('abc') "reverse" from dual
+  2  ;
+
+reverse                                                                         
+--------------------------------------------------------------------------------
+cba                                                                             
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\plsqlex7_7.sql
+
+SQL> ed/
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lengthobj7_6.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lengthobj7_6.sql"
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lenghtobj7_6.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lenghtobj7_6.sql"
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lenghtobj.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lenghtobj.sql"
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lenhtobj.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lenhtobj.sql"
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lenthobj.sql
+  5  
+  6  
+  7  
+  8  
+  9  
+ 10  .
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lengthobj.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lengthobj.sql"
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lengthobj.sql
+SP2-0310: unable to open file "\\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lengthobj.sql"
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex7\lengthobj.sql
+  6  
+  7  
+  8  
+  9  .
+SQL> exit

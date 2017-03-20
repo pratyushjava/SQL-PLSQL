@@ -1,0 +1,501 @@
+SQL> create table customer(
+  2  meter_no varchar2(4),
+  3  previous_reading number(5)1
+  4
+SQL> create table customer(
+  2  meter_no varchar2(4),meter_type character(1),
+  3  previous_reading number(5),current_reading number(5),
+  4  customer_type character(1),lastbill_payment character(1));
+
+Table created.
+
+SQL> create table bill(meter_num varchar2(4), units_used number(5),rate number(5
+,3),amount number(8,3),surcharge number(8,3),excise_duty number(8,3),net number(
+8,3));
+
+Table created.
+
+SQL> create table bill_new(amount number(8,3),surcharge number(8,3),excise_duty
+number(8,3),net number(8,3));
+
+Table created.
+
+SQL> insert into customer values('&meter','&type',&prev,&next,'&custtype','&bill
+');
+Enter value for meter: 1001
+Enter value for type: T
+Enter value for prev: 3010
+Enter value for next: 3050
+Enter value for custtype: A
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1001','T',3010,3050,'A','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1002
+Enter value for type: S
+Enter value for prev: 3050
+Enter value for next: 4010
+Enter value for custtype: C
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1002','S',3050,4010,'C','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1003
+Enter value for type: T
+Enter value for prev: 4050
+Enter value for next: 4070
+Enter value for custtype: I
+Enter value for bill: N
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1003','T',4050,4070,'I','N')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1004
+Enter value for type: S
+Enter value for prev: 5001
+Enter value for next: 5080
+Enter value for custtype: R
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1004','S',5001,5080,'R','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1005
+Enter value for type: T
+Enter value for prev: 2004
+Enter value for next: 3040
+Enter value for custtype: A
+Enter value for bill: N
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1005','T',2004,3040,'A','N')
+
+1 row created.
+
+SQL> select * from customer;
+
+METE M PREVIOUS_READING CURRENT_READING C L
+---- - ---------------- --------------- - -
+1001 T             3010            3050 A Y
+1002 S             3050            4010 C Y
+1003 T             4050            4070 I N
+1004 S             5001            5080 R Y
+1005 T             2004            3040 A N
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex5_2.sql
+
+Procedure created.
+
+SQL> exec proc_cust
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from bill;
+
+METE UNITS_USED       RATE     AMOUNT  SURCHARGE EXCISE_DUTY        NET
+---- ---------- ---------- ---------- ---------- ----------- ----------
+1001         40          1         40          4        13.2       57.2
+1002        960        1.5       1440         72       453.6     1965.6
+1003         20       1.25         25        2.5        8.25      35.75
+1004         79        1.3      102.7      5.135      32.351    140.186
+1005       1036          1       1036      103.6      341.88    1481.48
+
+SQL> select * from bill_new;
+
+    AMOUNT  SURCHARGE EXCISE_DUTY        NET
+---------- ---------- ----------- ----------
+        25        2.5        8.25      35.75
+     102.7      5.135      32.351    140.186
+      1036      103.6      341.88    1481.48
+        40          4        13.2       57.2
+      1440         72       453.6     1965.6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SQL> create table customer(
+  2  meter_no varchar2(4),
+  3  previous_reading number(5)1
+  4
+SQL> create table customer(
+  2  meter_no varchar2(4),meter_type character(1),
+  3  previous_reading number(5),current_reading number(5),
+  4  customer_type character(1),lastbill_payment character(1));
+
+Table created.
+
+SQL> create table bill(meter_num varchar2(4), units_used number(5),rate number(5
+,3),amount number(8,3),surcharge number(8,3),excise_duty number(8,3),net number(
+8,3));
+
+Table created.
+
+SQL> create table bill_new(amount number(8,3),surcharge number(8,3),excise_duty
+number(8,3),net number(8,3));
+
+Table created.
+
+SQL> insert into customer values('&meter','&type',&prev,&next,'&custtype','&bill
+');
+Enter value for meter: 1001
+Enter value for type: T
+Enter value for prev: 3010
+Enter value for next: 3050
+Enter value for custtype: A
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1001','T',3010,3050,'A','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1002
+Enter value for type: S
+Enter value for prev: 3050
+Enter value for next: 4010
+Enter value for custtype: C
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1002','S',3050,4010,'C','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1003
+Enter value for type: T
+Enter value for prev: 4050
+Enter value for next: 4070
+Enter value for custtype: I
+Enter value for bill: N
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1003','T',4050,4070,'I','N')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1004
+Enter value for type: S
+Enter value for prev: 5001
+Enter value for next: 5080
+Enter value for custtype: R
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1004','S',5001,5080,'R','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1005
+Enter value for type: T
+Enter value for prev: 2004
+Enter value for next: 3040
+Enter value for custtype: A
+Enter value for bill: N
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1005','T',2004,3040,'A','N')
+
+1 row created.
+
+SQL> select * from customer;
+
+METE M PREVIOUS_READING CURRENT_READING C L
+---- - ---------------- --------------- - -
+1001 T             3010            3050 A Y
+1002 S             3050            4010 C Y
+1003 T             4050            4070 I N
+1004 S             5001            5080 R Y
+1005 T             2004            3040 A N
+
+SQL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+SQL> create table customer(
+  2  meter_no varchar2(4),
+  3  previous_reading number(5)1
+  4
+SQL> create table customer(
+  2  meter_no varchar2(4),meter_type character(1),
+  3  previous_reading number(5),current_reading number(5),
+  4  customer_type character(1),lastbill_payment character(1));
+
+Table created.
+
+SQL> create table bill(meter_num varchar2(4), units_used number(5),rate number(5
+,3),amount number(8,3),surcharge number(8,3),excise_duty number(8,3),net number(
+8,3));
+
+Table created.
+
+SQL> create table bill_new(amount number(8,3),surcharge number(8,3),excise_duty
+number(8,3),net number(8,3));
+
+Table created.
+
+SQL> insert into customer values('&meter','&type',&prev,&next,'&custtype','&bill
+');
+Enter value for meter: 1001
+Enter value for type: T
+Enter value for prev: 3010
+Enter value for next: 3050
+Enter value for custtype: A
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1001','T',3010,3050,'A','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1002
+Enter value for type: S
+Enter value for prev: 3050
+Enter value for next: 4010
+Enter value for custtype: C
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1002','S',3050,4010,'C','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1003
+Enter value for type: T
+Enter value for prev: 4050
+Enter value for next: 4070
+Enter value for custtype: I
+Enter value for bill: N
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1003','T',4050,4070,'I','N')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1004
+Enter value for type: S
+Enter value for prev: 5001
+Enter value for next: 5080
+Enter value for custtype: R
+Enter value for bill: Y
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1004','S',5001,5080,'R','Y')
+
+1 row created.
+
+SQL> /
+Enter value for meter: 1005
+Enter value for type: T
+Enter value for prev: 2004
+Enter value for next: 3040
+Enter value for custtype: A
+Enter value for bill: N
+old   1: insert into customer values('&meter','&type',&prev,&next,'&custtype','&
+bill')
+new   1: insert into customer values('1005','T',2004,3040,'A','N')
+
+1 row created.
+
+SQL> select * from customer;
+
+METE M PREVIOUS_READING CURRENT_READING C L
+---- - ---------------- --------------- - -
+1001 T             3010            3050 A Y
+1002 S             3050            4010 C Y
+1003 T             4050            4070 I N
+1004 S             5001            5080 R Y
+1005 T             2004            3040 A N
+
+SQL>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

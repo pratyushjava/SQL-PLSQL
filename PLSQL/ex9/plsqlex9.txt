@@ -1,0 +1,24 @@
+SQL> create table ord_mst(
+   ord_no number(4),
+    cust_cd varchar2(4),
+    status character(2)
+    );
+
+Table created.
+
+SQL> create table ord_dt1(
+    ord_no number(4),
+    prod_cd varchar2(4),
+    qty number(4)
+    );
+
+Table created.
+
+SQL> create table prod_mst(
+   prod_cd varchar2(4),
+    prod_name varchar2(10),
+    qty_in_stock number(10),
+    booked_qty number(5)
+    );
+
+Table created.

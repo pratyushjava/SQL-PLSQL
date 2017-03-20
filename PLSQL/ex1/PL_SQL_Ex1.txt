@@ -1,0 +1,53 @@
+						PL*SQL
+					      Exercise 1
+
+Sol:1->
+
+SQL> declare
+  2     length number:=44;
+  3     width number:=50;
+  4     area number;
+  5     perimeter number;
+  6  begin
+  7     perimeter:=2*(length+width);
+  8     area:=length*width;
+  9     dbms_output.put_line('perimeter='||perimeter);
+ 10     dbms_output.put_line('area='||area);
+ 11  end;
+ 12  /
+perimeter=188
+area=2200
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2     length number:=&length;
+  3     width number:=&width;
+  4     area number;
+  5     perimeter number;
+  6  begin
+  7     perimeter:=2*(length+width);
+  8     area:=length*width;
+  9     dbms_output.put_line('perimeter='||perimeter);
+ 10     dbms_output.put_line('area='||area);
+ 11  end;
+ 12  /
+Enter value for length: 20
+old   2:        length number:=&length;
+new   2:        length number:=20;
+Enter value for width: 10
+old   3:        width number:=&width;
+new   3:        width number:=10;
+perimeter=60
+area=200
+
+PL/SQL procedure successfully completed.
+
+SQL> set verify off
+SQL> /
+Enter value for length: 20
+Enter value for width: 10
+perimeter=60
+area=200
+
+PL/SQL procedure successfully completed.

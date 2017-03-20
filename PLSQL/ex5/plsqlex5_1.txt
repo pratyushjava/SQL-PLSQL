@@ -1,0 +1,242 @@
+
+sol:1->
+
+SQL> create table school(
+  2  roll_no number(4),
+  3  name varchar2(20),
+  4  section number(4),
+  5  class char(7),
+  6  oracle number(3),
+  7  dev_2000 number(3)
+  8  );
+
+Table created.
+
+SQL> begin
+  2  insert into school(roll_no,name,section,class,oracle,dev_2000)
+  3  values(&roll_no,'&name',&section,'&class',&oracle,&dev_2000);
+  4  commit;
+  5  end;
+  6  /
+Enter value for roll_no: 1
+Enter value for name: mukesh khanna
+Enter value for section: 9012
+Enter value for class: working
+Enter value for oracle: 55
+Enter value for dev_2000: 80
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 2
+Enter value for name: rajive chawala
+Enter value for section: 9025
+Enter value for class: student
+Enter value for oracle: 75
+Enter value for dev_2000: 85
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 3
+Enter value for name: pramila bordes
+Enter value for section: 9025
+Enter value for class: working
+Enter value for oracle: 45
+Enter value for dev_2000: 45
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 4
+Enter value for name: nitesh bharadwaj
+Enter value for section: 9025
+Enter value for class: student
+Enter value for oracle: 67
+Enter value for dev_2000: 75
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 5
+Enter value for name: anita sod
+Enter value for section: 9012
+Enter value for class: student
+Enter value for oracle: 86
+Enter value for dev_2000: 72
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 6
+Enter value for name: kalyani deshmukh
+Enter value for section: 9012
+Enter value for class: working
+Enter value for oracle: 55
+Enter value for dev_2000: 65
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 7
+Enter value for name: rakesh surna
+Enter value for section: 9025
+Enter value for class: working
+Enter value for oracle: 95
+Enter value for dev_2000: 95
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 8
+Enter value for name: alok kumar nath
+Enter value for section: 9025
+Enter value for class: working
+Enter value for oracle: 25
+Enter value for dev_2000: 40
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 9
+Enter value for name: sushmita banerjee
+Enter value for section: 9025
+Enter value for class: student
+Enter value for oracle: 73
+Enter value for dev_2000: 83
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 10
+Enter value for name: pranay aiyyer
+Enter value for section: 9012
+Enter value for class: working
+Enter value for oracle: 62
+Enter value for dev_2000: 85
+
+PL/SQL procedure successfully completed.
+
+
+SQL> /
+Enter value for roll_no: 11
+Enter value for name: shalini patel
+Enter value for section: 9012
+Enter value for class: working
+Enter value for oracle: 35
+Enter value for dev_2000: 00
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 12
+Enter value for name: ketan tendulkar
+Enter value for section: 9012
+Enter value for class: working
+Enter value for oracle: 83
+Enter value for dev_2000: 98
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 13
+Enter value for name: arun trivedi
+Enter value for section: 9012
+Enter value for class: working
+Enter value for oracle: 67
+Enter value for dev_2000: 33
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 14
+Enter value for name: victor D''souza
+Enter value for section: 9025
+Enter value for class: working
+Enter value for oracle: 59
+Enter value for dev_2000: 63
+
+PL/SQL procedure successfully completed.
+
+SQL> /
+Enter value for roll_no: 15
+Enter value for name: sarah ahmed
+Enter value for section: 9025
+Enter value for class: student
+Enter value for oracle: 65
+Enter value for dev_2000: 73
+
+PL/SQL procedure successfully completed.
+
+
+SQL> create table result(
+  2  roll_no number(4),
+  3  total number(3),
+  4  percent number(5,2),
+  5  grade varchar2(10)
+  6  );
+
+Table created.
+
+
+SQL> declare
+  2  total number;
+  3  percent number;
+  4  grade varchar2(10);
+  5  begin
+  6  for i in (select * from school)
+  7  loop
+  8     total:=i.oracle+i.dev_2000;
+  9     percent:=total/2;
+ 10     if(i.class='working') then
+ 11             if(percent<50) then
+ 12                     grade:='fail';
+ 13             else
+ 14                     grade:='pass';
+ 15             end if;
+ 16     else
+ 17             if(percent<40) then
+ 18                     grade:='fail';
+ 19             elsif (percent between 40 and 49.99) then
+ 20                     grade:='c';
+ 21             elsif (percent between 50 and 59.99) then
+ 22                     grade:='b';
+ 23             elsif (percent between 60 and 79.99) then
+ 24                     grade:='a';
+ 25             else
+ 26                     grade:='honours';
+ 27             end  if;
+ 28     end  if;
+ 29     insert into result(roll_no,total,percent,grade)
+ 30     values(i.roll_no,total,percent,grade);
+ 31  end loop;
+ 32  end;
+ 33  /
+
+PL/SQL procedure successfully completed.
+
+
+SQL> select * from result;
+
+   ROLL_NO      TOTAL    PERCENT GRADE
+---------- ---------- ---------- ----------
+         1        135       67.5 pass
+         2        160         80 honours
+         3         90         45 fail
+         4        142         71 a
+         5        158         79 a
+         6        120         60 pass
+         7        190         95 pass
+         8         65       32.5 fail
+         9        156         78 a
+        10        147       73.5 pass
+        11         35       17.5 fail
+
+   ROLL_NO      TOTAL    PERCENT GRADE
+---------- ---------- ---------- ----------
+        12        181       90.5 pass
+        13        100         50 pass
+        14        122         61 pass
+        15        138         69 a
+
+15 rows selected.

@@ -1,0 +1,721 @@
+SQL> insert into ord_mst values(
+    1,'c1','p')
+    ;
+
+1 row created.
+
+SQL> insert into ord_dt1 values(
+   1,'p1',100)
+    ;
+
+1 row created.
+
+SQL> insert into ord_dt1 values(
+    1,'p2',200)
+    ;
+
+1 row created.
+
+SQL> insert into prod_mst values(
+  'p1','floppies',10000,1000)
+    ;
+
+1 row created.
+
+SQL> insert into prod_mst values(
+   'p2','printers',5000,600)
+    ;
+
+1 row created.
+
+SQL> insert into prod_mst values(
+   'p3','modems',3000,200)
+    ;
+
+1 row created.
+
+SQL> ed/
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_1.sql
+
+Warning: Trigger created with compilation errors.
+
+SQL> show errors
+Errors for TRIGGER DTL_INS_ROW:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+2/2      PL/SQL: SQL Statement ignored                                          
+2/44     PL/SQL: ORA-00904: "NEW"."QTY": invalid identifier                     
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_1.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_1.sql
+
+Trigger created.
+
+SQL> insert into ord_dt1 values(
+  2  1,'p3',300)
+  3  
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+
+SQL> select*from prod_mst
+  2  ;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1000                                         
+p2   printers           5000        600                                         
+p3   modems             3000        200                                         
+
+SQL> insert into ord_dt1 values(
+  2  1,'p3',300)
+  3  ;
+
+1 row created.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> select*from prod_mst
+  2  ;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1300                                         
+p2   printers           5000        900                                         
+p3   modems             3000        500                                         
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_1.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_1.sql
+
+Trigger created.
+
+SQL> insert into ord_dt1 values(
+  2  1,'p3',500)
+  3  ;
+
+1 row created.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+         1 p3          500                                                      
+
+SQL> select*from prod_mst
+  2  ;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1300                                         
+p2   printers           5000        900                                         
+p3   modems             3000       1000                                         
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_2.sql
+
+Trigger created.
+
+SQL> delete from ord_dt1 where qty=500;
+
+1 row deleted.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1300                                         
+p2   printers           5000        900                                         
+p3   modems             3000        500                                         
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_1.sql
+
+Trigger created.
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_2.sql
+
+Trigger created.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1300                                         
+p2   printers           5000        900                                         
+p3   modems             3000        500                                         
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_3.sql
+
+Warning: Trigger created with compilation errors.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_3.sql
+
+SQL> show error
+Errors for TRIGGER DTL_UPDATE_ROW:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+2/14     PLS-00103: Encountered the symbol "OF" when expecting one of the       
+         following:                                                             
+         . ( * @ % & = - + < / > at in is mod remainder not rem then            
+         <an exponent (**)> <> or != or ~= >= <= <> and or like like2           
+         like4 likec between || multiset member submultiset                     
+         The symbol "member" was substituted for "OF" to continue.              
+                                                                                
+6/17     PLS-00103: Encountered the symbol "OF" when expecting one of the       
+         following:                                                             
+         . ( * @ % & = - + < / > at in is mod remainder not rem then            
+         <an exponent (**)> <> or != or ~= >= <= <> and or like like2           
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+         like4 likec between || multiset member submultiset                     
+         The symbol "member" was substituted for "OF" to continue.              
+                                                                                
+SQL> show error
+Errors for TRIGGER DTL_UPDATE_ROW:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+2/14     PLS-00103: Encountered the symbol "OF" when expecting one of the       
+         following:                                                             
+         . ( * @ % & = - + < / > at in is mod remainder not rem then            
+         <an exponent (**)> <> or != or ~= >= <= <> and or like like2           
+         like4 likec between || multiset member submultiset                     
+         The symbol "member" was substituted for "OF" to continue.              
+                                                                                
+6/17     PLS-00103: Encountered the symbol "OF" when expecting one of the       
+         following:                                                             
+         . ( * @ % & = - + < / > at in is mod remainder not rem then            
+         <an exponent (**)> <> or != or ~= >= <= <> and or like like2           
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+         like4 likec between || multiset member submultiset                     
+         The symbol "member" was substituted for "OF" to continue.              
+                                                                                
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_3.sql
+
+Trigger created.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> update ord_td1 set prod_cd='p2' where qty=300;
+update ord_td1 set prod_cd='p2' where qty=300
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> update ord_dt1 set prod_cd='p2' where qty=300;
+
+1 row updated.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+         1 p2          300                                                      
+
+SQL> select*from prod_mst
+  2  ;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1300                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> update ord_td1 set qty=500 where prod_cd='p1';
+update ord_td1 set qty=500 where prod_cd='p1'
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> update ord_dt1 set qty=500 where prod_cd='p1';
+
+1 row updated.
+
+SQL> select*from prod_mst
+  2  ;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1700                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> update ord_dt1 set qty=300 where prod_cd='p1';
+
+1 row updated.
+
+SQL> select*from prod_mst
+  2  ;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1900                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          300                                                      
+         1 p2          200                                                      
+         1 p2          300                                                      
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_3.sql
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1900                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_3.sql
+
+Trigger created.
+
+SQL> update ord_dt1 set qty=100 where prod_cd='p1';
+
+1 row updated.
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1500                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_3.sql
+
+SQL> select*from prod_mst
+  2  ;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1500                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          100                                                      
+         1 p2          200                                                      
+         1 p2          300                                                      
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_3.sql
+
+Trigger created.
+
+SQL> update ord_dt1 set qty=50 where prod_cd='p1';
+
+1 row updated.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1           50                                                      
+         1 p2          200                                                      
+         1 p2          300                                                      
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1450                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> update ord_dt1 set qty=500 where prod_cd='p1';
+
+1 row updated.
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1900                                         
+p2   printers           5000       1200                                         
+p3   modems             3000        200                                         
+
+SQL> update ord_td1 set prod_cd='p3' where qty=300;
+update ord_td1 set prod_cd='p3' where qty=300
+       *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> update ord_dt1 set prod_cd='p3' where qty=300;
+
+1 row updated.
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1900                                         
+p2   printers           5000        900                                         
+p3   modems             3000        500                                         
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          500                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> select*from ord_mst;
+
+    ORD_NO CUST ST                                                              
+---------- ---- --                                                              
+         1 c1   p                                                               
+
+SQL> desc custpurchase
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUST_CODE                                          NUMBER(1)
+ TOTAL                                              NUMBER(8)
+
+SQL> select * from customer;
+
+METE M PREVIOUS_READING CURRENT_READING C L                                     
+---- - ---------------- --------------- - -                                     
+1001 T             3010            3050 A Y                                     
+1002 S             3050            4010 C Y                                     
+1003 T             4050            4070 I N                                     
+1004 S             5001            5080 R Y                                     
+1005 T             2004            3040 A N                                     
+
+SQL> select * from inventoru;
+select * from inventoru
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from inventory;;
+select * from inventory;
+                       *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> select * from inventory;
+
+INVO INVOICE_D CUSTOMER_CODE PRODUCT_CODE QUANTITY_SOLD                         
+---- --------- ------------- ------------ -------------                         
+1001 23-MAR-12             0            1            10                         
+1002 12-MAR-12             2            3            12                         
+1003 12-JAN-12             1            4             2                         
+1004 01-JAN-12             3            0            34                         
+1005 01-MAR-12             4            2            23                         
+1006 28-MAR-12             5            3            10                         
+1007 08-JAN-12             6            2            15                         
+1008 08-FEB-12             7            1            45                         
+1009 28-FEB-12             8            3            12                         
+1010 18-FEB-12             9            4            13                         
+1011 23-FEB-12             0            0            21                         
+
+11 rows selected.
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+
+Warning: Trigger created with compilation errors.
+
+SQL> show errors
+Errors for TRIGGER ORDMST_UPDATE_ROW:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+2/59     PLS-00103: Encountered the symbol ";" when expecting one of the        
+         following:                                                             
+         loop                                                                   
+                                                                                
+16/4     PLS-00103: Encountered the symbol "end-of-file" when expecting         
+         one of the following:                                                  
+         end not pragma final instantiable order overriding static              
+         member constructor map                                                 
+                                                                                
+SQL> end \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+SP2-0734: unknown command beginning "end \\Acts..." - rest of line ignored.
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+
+Warning: Trigger created with compilation errors.
+
+SQL> show errors
+Errors for TRIGGER ORDMST_UPDATE_ROW:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+2/59     PLS-00103: Encountered the symbol ";" when expecting one of the        
+         following:                                                             
+         loop                                                                   
+                                                                                
+17/4     PLS-00103: Encountered the symbol "end-of-file" when expecting         
+         one of the following:                                                  
+         end not pragma final instantiable order overriding static              
+         member constructor map                                                 
+                                                                                
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+
+Trigger created.
+
+SQL> select*from ord_mst;
+
+    ORD_NO CUST ST                                                              
+---------- ---- --                                                              
+         1 c1   p                                                               
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          500                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1900                                         
+p2   printers           5000        900                                         
+p3   modems             3000        500                                         
+
+SQL> commit;
+
+Commit complete.
+
+SQL> update ord_mst set status='d' where ord_no=1;
+
+1 row updated.
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies           9500       1400                                         
+p2   printers           4800        700                                         
+p3   modems             2700        200                                         
+
+SQL> rollback
+  2  ;
+
+Rollback complete.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\ex9\plsqlex9_4.sql
+
+Trigger created.
+
+SQL> update ord_mst set status='c' where ord_no=1;
+
+1 row updated.
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1400                                         
+p2   printers           5000        700                                         
+p3   modems             3000        200                                         
+
+SQL> select*from ord_dt1;
+
+no rows selected
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies          10000       1900                                         
+p2   printers           5000        900                                         
+p3   modems             3000        500                                         
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          500                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> select*from ord_must;
+select*from ord_must
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select*from ord_mst;
+
+    ORD_NO CUST ST                                                              
+---------- ---- --                                                              
+         1 c1   p                                                               
+
+SQL> update ord_mst set status='d' where ord_no=1;
+
+1 row updated.
+
+SQL> select*from ord_must;
+select*from ord_must
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select*from ord_mst;
+
+    ORD_NO CUST ST                                                              
+---------- ---- --                                                              
+         1 c1   d                                                               
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          500                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies           9500       1400                                         
+p2   printers           4800        700                                         
+p3   modems             2700        200                                         
+
+SQL> insert into ord_mst values(2,'c2','p');
+
+1 row created.
+
+SQL> insert into ord_mst values(3,'c1','p');
+
+1 row created.
+
+SQL> insert into ord_dt1 values(2,'p3',500);
+
+1 row created.
+
+SQL> insert into ord_dt1 values(3,'p1',200);
+
+1 row created.
+
+SQL> select*from ord_mst;
+
+    ORD_NO CUST ST                                                              
+---------- ---- --                                                              
+         1 c1   d                                                               
+         2 c2   p                                                               
+         3 c1   p                                                               
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          500                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+         2 p3          500                                                      
+         3 p1          200                                                      
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies           9500       1600                                         
+p2   printers           4800        700                                         
+p3   modems             2700        700                                         
+
+SQL> update ord_mst set status='d' where ord_no=2;
+
+1 row updated.
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies           9500       1600                                         
+p2   printers           4800        700                                         
+p3   modems             2200        200                                         
+
+SQL> update ord_mst set status='c' where ord_no=3;
+
+1 row updated.
+
+SQL> select*from ord_dt1;
+
+    ORD_NO PROD        QTY                                                      
+---------- ---- ----------                                                      
+         1 p1          500                                                      
+         1 p2          200                                                      
+         1 p3          300                                                      
+         2 p3          500                                                      
+
+SQL> select*from prod_mst;
+
+PROD PROD_NAME  QTY_IN_STOCK BOOKED_QTY                                         
+---- ---------- ------------ ----------                                         
+p1   floppies           9500       1400                                         
+p2   printers           4800        700                                         
+p3   modems             2200        200                                         
+
+SQL> spool off;

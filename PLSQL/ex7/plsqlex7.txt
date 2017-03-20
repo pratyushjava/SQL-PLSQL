@@ -1,0 +1,541 @@
+SQL> ed\
+
+SQL> select * from employ
+  2  ;
+
+EMPN EMP_NAME                       DESIGNATIO C  BASIC_SAL                     
+---- ------------------------------ ---------- - ----------                     
+106  suuny                          developer  J       8000                     
+101  nani                           manager    J       2000                     
+102  bunny                          ceo        S       5000                     
+103  sunnt                          hr         W       8000                     
+104  lucky                          watchman   W       1000                     
+105  rohan                          scientist  S       9000                     
+
+6 rows selected.
+
+SQL> desc employ
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              VARCHAR2(4)
+ EMP_NAME                                           VARCHAR2(30)
+ DESIGNATION                                        VARCHAR2(10)
+ CATEGORY                                           CHAR(1)
+ BASIC_SAL                                          NUMBER(4)
+
+SQL> alter table employ
+  2  modify basic_sal number(6);
+
+Table altered.
+
+SQL> insert into employ values('107','lorry','tester','J',8000);
+
+1 row created.
+
+SQL> ed\
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+Warning: Procedure created with compilation errors.
+
+SQL> show error
+Errors for PROCEDURE PROC_EMP_GREATSAL:
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+7/4      PLS-00103: Encountered the symbol "DBMS_OUTPUT" when expecting         
+         one of the following:                                                  
+         * & = - + < / > at in is mod remainder not rem then                    
+         <an exponent (**)> <> or != or ~= >= <= <> and or like like2           
+         like4 likec between overlaps || multiset year day member               
+         submultiset                                                            
+         The symbol "*" was substituted for "DBMS_OUTPUT" to continue.          
+                                                                                
+7/40     PLS-00103: Encountered the symbol ";" when expecting one of the        
+         following:                                                             
+         . ( * % & = - + < / > at in is mod remainder not rem then              
+
+LINE/COL ERROR                                                                  
+-------- -----------------------------------------------------------------      
+         <an exponent (**)> <> or != or ~= >= <= <> and or like like2           
+         like4 likec between || member submultiset                              
+                                                                                
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+Procedure created.
+
+SQL> exec proc_emp_greatsal
+salary found                                                                    
+salary found                                                                    
+salary found                                                                    
+salary found                                                                    
+salary found                                                                    
+salary found                                                                    
+salary found                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+Procedure created.
+
+SQL> exec proc_emp_greatsal
+
+PL/SQL procedure successfully completed.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+Procedure created.
+
+SQL> exec proc_emp_greatsal
+8000                                                                            
+8000                                                                            
+2000                                                                            
+5000                                                                            
+8000                                                                            
+1000                                                                            
+9000                                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from employ;
+
+EMPN EMP_NAME                       DESIGNATIO C  BASIC_SAL                     
+---- ------------------------------ ---------- - ----------                     
+106  suuny                          developer  J       8000                     
+107  lorry                          tester     J       8000                     
+101  nani                           manager    J       2000                     
+102  bunny                          ceo        S       5000                     
+103  sunnt                          hr         W       8000                     
+104  lucky                          watchman   W       1000                     
+105  rohan                          scientist  S       9000                     
+
+7 rows selected.
+
+SQL> insert into employ values('108','korry','tester','J',18000);
+
+1 row created.
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+Procedure created.
+
+SQL> exec proc_emp_greatsal
+8000                                                                            
+8000                                                                            
+salary should not enter beyond this                                             
+
+PL/SQL procedure successfully completed.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+SQL> select * from tempp;
+
+       NUM     SQUARE       CUBE                                                
+---------- ---------- ----------                                                
+         1          1          1                                                
+         2          4          8                                                
+         3          9         27                                                
+         4         16         64                                                
+         5         25        125                                                
+         6         36        216                                                
+         7         49        343                                                
+         8         64        512                                                
+         9         81        729                                                
+         5         25        125                                                
+
+10 rows selected.
+
+SQL> select * from employee;
+select * from employee
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from emp;
+
+       SAL                                                                      
+----------                                                                      
+      8000                                                                      
+      7000                                                                      
+      6000                                                                      
+      5000                                                                      
+     10000                                                                      
+      9000                                                                      
+      4000                                                                      
+      8000                                                                      
+      7000                                                                      
+
+9 rows selected.
+
+SQL> select * from emp1;
+
+     EMPNO                                                                      
+----------                                                                      
+         1                                                                      
+         1                                                                      
+         2                                                                      
+         3                                                                      
+         3                                                                      
+         4                                                                      
+         4                                                                      
+         4                                                                      
+         5                                                                      
+         6                                                                      
+
+10 rows selected.
+
+SQL> select * from tab;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+THIRDORDERS                    VIEW                                             
+TEMPP                          TABLE                                            
+SPJ                            TABLE                                            
+SEMP                           TABLE                                            
+SDEPT                          TABLE                                            
+SCHOOL                         TABLE                                            
+SALESPEOPLENEW                 TABLE                                            
+SALESPEOPLE                    TABLE                                            
+SALESCITY                      VIEW                                             
+S                              TABLE                                            
+RESULT                         TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+PROD_SALE                      TABLE                                            
+P                              TABLE                                            
+ORDERSNEW                      TABLE                                            
+ORDERS                         TABLE                                            
+NULLCITIES                     VIEW                                             
+MULTICUSTOMER                  VIEW                                             
+MULTICUST                      TABLE                                            
+MAX_RATING                     VIEW                                             
+J                              TABLE                                            
+INVENTORY                      TABLE                                            
+GRNTCUST                       VIEW                                             
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+ENTRYORDERS                    VIEW                                             
+EMP_GROSS                      TABLE                                            
+EMPLOY                         TABLE                                            
+EMP1                           TABLE                                            
+EMP                            TABLE                                            
+DAILYORDERS                    VIEW                                             
+CUSTPURCHASE                   TABLE                                            
+CUSTOTALS                      VIEW                                             
+CUSTOMERS                      TABLE                                            
+CUSTOMER                       TABLE                                            
+COMMISSIONS                    VIEW                                             
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+CITYORDERS                     TABLE                                            
+BIN$ehH1GQTDTCeRMNNk9c3MRQ==$0 TABLE                                            
+BIN$YZeLIKkkSXWMi5qRYW/Bgg==$0 TABLE                                            
+BILL_NEW                       TABLE                                            
+BILL                           TABLE                                            
+AVGSUMORDERS                   VIEW                                             
+
+39 rows selected.
+
+SQL> select * from all_tab;
+select * from all_tab
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from sys_tab;
+select * from sys_tab
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex7_2.sql
+
+SQL> ed\
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_1.sql
+
+Procedure created.
+
+SQL> exec comp_intr(1000,.25,2)
+2500 1500                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> create table tempii(interest number(5,2),amount number(6,3));
+
+Table created.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_1.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_1.sql
+
+Procedure created.
+
+SQL> exec comp_intr(1000,.25,2)
+BEGIN comp_intr(1000,.25,2); END;
+
+*
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column 
+ORA-06512: at "ORAD41.COMP_INTR", line 9 
+ORA-06512: at line 1 
+
+
+SQL> desc tempii
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ INTEREST                                           NUMBER(5,2)
+ AMOUNT                                             NUMBER(6,3)
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_1.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_1.sql
+
+Procedure created.
+
+SQL> exec comp_intr(1000,.25,2)
+BEGIN comp_intr(1000,.25,2); END;
+
+*
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column 
+ORA-06512: at "ORAD41.COMP_INTR", line 9 
+ORA-06512: at line 1 
+
+
+SQL> alter table tempii
+  2  modify amount number;
+
+Table altered.
+
+SQL> alter table tempii
+  2  modify interest number;
+
+Table altered.
+
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_1.sql
+
+SQL> start \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_1.sql
+
+Procedure created.
+
+SQL> exec comp_intr(1000,.25,2)
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from tempii;
+
+  INTEREST     AMOUNT                                                           
+---------- ----------                                                           
+      1500       2500                                                           
+
+SQL> exec comp_intr(825,.25,2)
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from tempii;
+
+  INTEREST     AMOUNT                                                           
+---------- ----------                                                           
+      1500       2500                                                           
+    1237.5     2062.5                                                           
+
+SQL> ed/
+
+SQL> ed\
+
+SQL> 
+SQL> ed \\Acts-adc\userdata$\dac41\Desktop\oracle_assgn\PLSQL\plsqlex8_2.sql
+
+SQL> begin
+  2  	days:=sysdate-dob;
+  3  	year:=floor(days/365);
+  4  	mon:=mod(days,365)/30;
+  5  	days:=mod(mon,30);
+  6  	return year;
+  7  end;
+  8  .
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('03-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=mod(days,365)/30;
+  9  	days:=mod(mon,30);
+ 10  	return year;
+ 11  end;
+ 12  /
+	return year;
+	*
+ERROR at line 10:
+ORA-06550: line 10, column 2: 
+PLS-00372: In a procedure, RETURN statement cannot contain an expression 
+ORA-06550: line 10, column 2: 
+PL/SQL: Statement ignored 
+
+
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('03-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=mod(days,365)/30;
+  9  	days:=mod(mon,30);
+ 10  end;
+ 11  /
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('03-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=mod(days,365)/30;
+  9  	days:=mod(mon,30);
+ 10  	dbms_output.put_line(year||'year '||mon||' '||days);
+ 11  end;
+ 12  /\
+ 13  .
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('03-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=mod(days,365)/30;
+  9  	days:=mod(mon,30);
+ 10  	dbms_output.put_line(year||'year '||mon||' '||days);
+ 11  end;
+ 12  /
+1year 6.031689429012345679012345679012345679                                    
+6.031689429012345679012345679012345679                                          
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('03-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=mod(days,365)/30;
+  9  	days:=mod(mon,30);
+ 10  	dbms_output.put_line(year||'year '||mon||' '||days);
+ 11  end;
+ 12  /
+1year 6.03170910493827160493827160493827160493                                  
+6.03170910493827160493827160493827160493                                        
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('03-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=floor(mod(days,365)/30);
+  9  	days:=mod(mon,30);
+ 10  	dbms_output.put_line(year||'year '||mon||' '||days);
+ 11  end;
+ 12  /
+1year 6 6                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('10-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=floor(mod(days,365)/30);
+  9  	days:=mod(mon,30);
+ 10  	dbms_output.put_line(year||'year '||mon||' '||days);
+ 11  end;
+ 12  /
+1year 5 5                                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('03-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=floor(mod(days,365)/30);
+  9  	days:=mod(mon,30);
+ 10  .
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('10-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=floor(mod(days,365)/12);
+  9  	days:=mod(mon,30);
+ 10  	dbms_output.put_line(year||'year '||mon||' '||days);
+ 11  end;
+ 12  /
+1year 14 14                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  begin
+  6  	days:=sysdate-to_date('10-oct-2010');
+  7  	year:=floor(days/365);
+  8  	mon:=floor(mod(days,365)/30);
+  9  	days:=mod(mon,30);
+ 10  .
+SQL> declare
+  2  days number;
+  3  mon number;
+  4  year number;
+  5  temp number;
+  6  begin
+  7  	days:=sysdate-to_date('10-oct-2010');
+  8  	year:=floor(days/365);
+  9  	temp:=mod(days,365);
+ 10  	mon:=floor(mod(days,365)/30);
+ 11  	days:=mod(temp,30);
+ 12  	dbms_output.put_line(year||'year '||mon||' '||days);
+ 13  end;
+ 14  /
+1year 5 23.958391203703703703703703703703703704                                 
+
+PL/SQL procedure successfully completed.
+
+SQL> spool off;
