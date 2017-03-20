@@ -1,0 +1,518 @@
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select onum,snum,(amt*.12) "Commision" from orders;
+
+      ONUM       SNUM  Commision                                                
+---------- ---------- ----------                                                
+      3001       1007     2.2428                                                
+      3003       1001    92.0628                                                
+      3002       1004    228.012                                                
+      3005       1002    619.254                                                
+      3006       1007   131.7792                                                
+      3009       1003   205.5876                                                
+      3007       1002       9.09                                                
+      3008       1001     566.76                                                
+      3010       1002    157.194                                                
+      3011       1001  1187.0256                                                
+
+10 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select distinct city,max(rating) from customers group by city;
+
+CITY       MAX(RATING)                                                          
+---------- -----------                                                          
+London             100                                                          
+Berlin             300                                                          
+Rome               200                                                          
+San Jose           300                                                          
+
+SQL> select distinct city,|", the highest rating is ::"max(rating) from customers group by city;
+select distinct city,|", the highest rating is ::"max(rating) from customers group by city
+                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select distinct city,", the highest rating is ::"max(rating) from customers group by city;
+select distinct city,", the highest rating is ::"max(rating) from customers group by city
+                                                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select distinct city,||", the highest rating is ::"max(rating) from customers group by city;
+select distinct city,||", the highest rating is ::"max(rating) from customers group by city
+                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select distinct city,||", the highest rating is ::"||max(rating) from customers group by city;
+select distinct city,||", the highest rating is ::"||max(rating) from customers group by city
+                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select distinct city,|", the highest rating is ::"|max(rating) from customers group by city;
+select distinct city,|", the highest rating is ::"|max(rating) from customers group by city
+                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select distinct city,|', the highest rating is ::'|max(rating) from customers group by city;
+select distinct city,|', the highest rating is ::'|max(rating) from customers group by city
+                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select distinct city,||', the highest rating is ::'||max(rating) from customers group by city;
+select distinct city,||', the highest rating is ::'||max(rating) from customers group by city
+                     *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select distinct city||', the highest rating is ::'||max(rating) from customers group by city;
+
+CITY||',THEHIGHESTRATINGIS::'||MAX(RATING)                                      
+----------------------------------------------------------------------------    
+Berlin, the highest rating is ::300                                             
+London, the highest rating is ::100                                             
+San Jose, the highest rating is ::300                                           
+Rome, the highest rating is ::200                                               
+
+SQL> select 'For the city '|distinct city||', the highest rating is ::'||max(rating) from customers group by city;
+select 'For the city '|distinct city||', the highest rating is ::'||max(rating) from customers group by city
+                      *
+ERROR at line 1:
+ORA-00996: the concatenate operator is ||, not | 
+
+
+SQL> select 'For the city '||distinct city||', the highest rating is ::'||max(rating) from customers group by city;
+select 'For the city '||distinct city||', the highest rating is ::'||max(rating) from customers group by city
+                        *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the city '||distinct city||', the highest rating is ::'||max(rating) from customers group by city;
+select 'For the city '||distinct city||', the highest rating is ::'||max(rating) from customers group by city
+                        *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the city '|distinct city||', the highest rating is ::'||max(rating) from customers group by city;
+select 'For the city '|distinct city||', the highest rating is ::'||max(rating) from customers group by city
+                      *
+ERROR at line 1:
+ORA-00996: the concatenate operator is ||, not | 
+
+
+SQL> 
+SQL> select "For the City" || distinct city || "The highest RAting is " || rating
+  2  from customers;
+select "For the City" || distinct city || "The highest RAting is " || rating
+                         *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select "For the City" || city || "The highest RAting is " || rating
+  2  from customers;
+select "For the City" || city || "The highest RAting is " || rating
+                                 *
+ERROR at line 1:
+ORA-00904: "The highest RAting is ": invalid identifier 
+
+
+SQL> select "For the City" || distinct city || " The highest Rating is " || rating
+  2  from customers;
+select "For the City" || distinct city || " The highest Rating is " || rating
+                         *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select "For the City" || city || " The highest Rating is " || rating
+  2  from customers;
+select "For the City" || city || " The highest Rating is " || rating
+                                 *
+ERROR at line 1:
+ORA-00904: " The highest Rating is ": invalid identifier 
+
+
+SQL> select 'For the City' || distinct city || ' The highest Rating is ' || rating
+  2  ;
+select 'For the City' || distinct city || ' The highest Rating is ' || rating
+                         *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the City' || distinct city || ' The highest Rating is ' || rating from customers;
+select 'For the City' || distinct city || ' The highest Rating is ' || rating from customers
+                         *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the City'||distinct city||' The highest Rating is '||rating from customers;
+select 'For the City'||distinct city||' The highest Rating is '||rating from customers
+                       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the City'|distinct city|' The highest Rating is '|rating from customers;
+select 'For the City'|distinct city|' The highest Rating is '|rating from customers
+                     *
+ERROR at line 1:
+ORA-00996: the concatenate operator is ||, not | 
+
+
+SQL> select 'For the City'||distinct city||' The highest Rating is '||,rating from customers;
+select 'For the City'||distinct city||' The highest Rating is '||,rating from customers
+                       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the City'||distinct city,||' The highest Rating is '||rating from customers;
+select 'For the City'||distinct city,||' The highest Rating is '||rating from customers
+                       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the City'||distinct city,||'The highest Rating is'||rating from customers;
+select 'For the City'||distinct city,||'The highest Rating is'||rating from customers
+                       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the City'||distinct city||'The highest Rating is'||rating from customers;
+select 'For the City'||distinct city||'The highest Rating is'||rating from customers
+                       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select 'For the City'||city||'The highest Rating is'||rating from customers;
+
+'FORTHECITY'||CITY||'THEHIGHESTRATINGIS'||RATING                                
+--------------------------------------------------------------------------------
+For the CityLondonThe highest Rating is100                                      
+For the CityRomeThe highest Rating is200                                        
+For the CitySan JoseThe highest Rating is200                                    
+For the CityBerlinThe highest Rating is300                                      
+For the CityLondonThe highest Rating is100                                      
+For the CitySan JoseThe highest Rating is300                                    
+For the CityRomeThe highest Rating is100                                        
+
+7 rows selected.
+
+SQL> select distinct 'For the City'||city||'The highest Rating is'||rating from customers;
+
+'FORTHECITY'||CITY||'THEHIGHESTRATINGIS'||RATING                                
+--------------------------------------------------------------------------------
+For the CitySan JoseThe highest Rating is200                                    
+For the CityRomeThe highest Rating is100                                        
+For the CityBerlinThe highest Rating is300                                      
+For the CityLondonThe highest Rating is100                                      
+For the CityRomeThe highest Rating is200                                        
+For the CitySan JoseThe highest Rating is300                                    
+
+6 rows selected.
+
+SQL> select distinct 'For the City '||city||' The highest Rating is '||rating from customers;
+
+'FORTHECITY'||CITY||'THEHIGHESTRATINGIS'||RATING                                
+--------------------------------------------------------------------------------
+For the City Rome The highest Rating is 200                                     
+For the City Rome The highest Rating is 100                                     
+For the City Berlin The highest Rating is 300                                   
+For the City San Jose The highest Rating is 300                                 
+For the City San Jose The highest Rating is 200                                 
+For the City London The highest Rating is 100                                   
+
+6 rows selected.
+
+SQL> 
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select rating,cname,cnum from customers order by rating desc;
+
+    RATING CNAME            CNUM                                                
+---------- ---------- ----------                                                
+       300 Grass            2004                                                
+       300 Cisneros         2008                                                
+       200 Liu              2003                                                
+       200 Giovanni         2002                                                
+       100 Pereira          2007                                                
+       100 Clemens          2006                                                
+       100 Hoffman          2001                                                
+
+7 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select odate,count(distinct odate) from orders;
+select odate,count(distinct odate) from orders
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select distinct odate,count(distinct odate) from orders;
+select distinct odate,count(distinct odate) from orders
+                *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select distinct odate,count(onum) from orders;
+select distinct odate,count(onum) from orders
+                *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select count(onum) from orders;
+
+COUNT(ONUM)                                                                     
+-----------                                                                     
+         10                                                                     
+
+SQL> select count(onum) from orders where odate IN (select distinct odate);
+select count(onum) from orders where odate IN (select distinct odate)
+                                                                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select count(onum) from orders where odate IN (select distinct odate from orders);
+
+COUNT(ONUM)                                                                     
+-----------                                                                     
+         10                                                                     
+
+SQL> select odate from orders where odate IN (select distinct odate from orders);
+
+ODATE                                                                           
+---------                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+04-OCT-90                                                                       
+04-OCT-90                                                                       
+05-OCT-90                                                                       
+06-OCT-90                                                                       
+06-OCT-90                                                                       
+
+10 rows selected.
+
+SQL> select distinct odate,count(distinct odate) from orders;
+select distinct odate,count(distinct odate) from orders
+                *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select count(distinct odate) from orders;
+
+COUNT(DISTINCTODATE)                                                            
+--------------------                                                            
+                   4                                                            
+
+SQL> select count(odate) from orders;
+
+COUNT(ODATE)                                                                    
+------------                                                                    
+          10                                                                    
+
+SQL> select distinct odate,count(odate) from orders;
+select distinct odate,count(odate) from orders
+                *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select distinct odate from orders;
+
+ODATE                                                                           
+---------                                                                       
+04-OCT-90                                                                       
+05-OCT-90                                                                       
+03-OCT-90                                                                       
+06-OCT-90                                                                       
+
+SQL> select distinct odate from orders order by odate;
+
+ODATE                                                                           
+---------                                                                       
+03-OCT-90                                                                       
+04-OCT-90                                                                       
+05-OCT-90                                                                       
+06-OCT-90                                                                       
+
+SQL> select count(onum) from orders where odate IN (select distinct odate from orders order);
+select count(onum) from orders where odate IN (select distinct odate from orders order)
+                                                                                 *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select count(onum) from orders where odate IN (select distinct odate from orders);
+
+COUNT(ONUM)                                                                     
+-----------                                                                     
+         10                                                                     
+
+SQL> select odate,count(onum) from orders where odate IN (select distinct odate from orders);
+select odate,count(onum) from orders where odate IN (select distinct odate from orders)
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select odate  from orders where odate IN (select distinct odate from orders);
+
+ODATE                                                                           
+---------                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+03-OCT-90                                                                       
+04-OCT-90                                                                       
+04-OCT-90                                                                       
+05-OCT-90                                                                       
+06-OCT-90                                                                       
+06-OCT-90                                                                       
+
+10 rows selected.
+
+SQL> select count(distinct odate) from orders;
+
+COUNT(DISTINCTODATE)                                                            
+--------------------                                                            
+                   4                                                            
+
+SQL> select count(onum) from orders where odate='03-OCT-90';
+
+COUNT(ONUM)                                                                     
+-----------                                                                     
+          5                                                                     
+
+SQL> select count(onum) from orders where odate IN (select distinct odate from orders);
+
+COUNT(ONUM)                                                                     
+-----------                                                                     
+         10                                                                     
+
+SQL> select odate,count(distinct odate) from orders;
+select odate,count(distinct odate) from orders
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select distinct odate,count(distinct odate) from orders;
+select distinct odate,count(distinct odate) from orders
+                *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select count(distinct odate) from orders group by odate;
+
+COUNT(DISTINCTODATE)                                                            
+--------------------                                                            
+                   1                                                            
+                   1                                                            
+                   1                                                            
+                   1                                                            
+
+SQL> select count(odate) from orders group by odate;
+
+COUNT(ODATE)                                                                    
+------------                                                                    
+           2                                                                    
+           1                                                                    
+           5                                                                    
+           2                                                                    
+
+SQL> spool off

@@ -1,0 +1,101 @@
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select o.snum,o.onum,o.smt,o.odate,o.cnum,c.cname,c.city,c.rating from orders o,cutomers c where c.cname='Cisneros' AND c.cnum=o.cnum;
+select o.snum,o.onum,o.smt,o.odate,o.cnum,c.cname,c.city,c.rating from orders o,cutomers c where c.cname='Cisneros' AND c.cnum=o.cnum
+                                                                                *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select o.snum,o.onum,o.smt,o.odate,o.cnum,c.cname,c.city,c.rating from orders o,customers c where c.cname='Cisneros' AND c.cnum=o.cnum;
+select o.snum,o.onum,o.smt,o.odate,o.cnum,c.cname,c.city,c.rating from orders o,customers c where c.cname='Cisneros' AND c.cnum=o.cnum
+                     *
+ERROR at line 1:
+ORA-00904: "O"."SMT": invalid identifier 
+
+
+SQL> select o.snum,o.onum,o.amt,o.odate,o.cnum,c.cname,c.city,c.rating from orders o,customers c where c.cname='Cisneros' AND c.cnum=o.cnum;
+
+      SNUM       ONUM        AMT ODATE           CNUM CNAME      CITY           
+---------- ---------- ---------- --------- ---------- ---------- ----------     
+    RATING                                                                      
+----------                                                                      
+      1007       3001      18.69 03-OCT-90       2008 Cisneros   San Jose       
+       300                                                                      
+                                                                                
+      1007       3006    1098.16 03-OCT-90       2008 Cisneros   San Jose       
+       300                                                                      
+                                                                                
+
+SQL> select name,rating from customers where cnum IN (select cnum from orders where amt>(select avg(amt) from orders));
+select name,rating from customers where cnum IN (select cnum from orders where amt>(select avg(amt) from orders))
+       *
+ERROR at line 1:
+ORA-00904: "NAME": invalid identifier 
+
+
+SQL> select c.name,c.rating from customers c where c.cnum IN (select o.cnum from orders o where o.amt>(select avg(ord.amt) from ord.orders));
+select c.name,c.rating from customers c where c.cnum IN (select o.cnum from orders o where o.amt>(select avg(ord.amt) from ord.orders))
+       *
+ERROR at line 1:
+ORA-00904: "C"."NAME": invalid identifier 
+
+
+SQL> select c.name,c.rating from customers c where c.cnum IN (select o.cnum from orders o where o.amt>(select avg(ord.amt) from ord.orders));
+select c.name,c.rating from customers c where c.cnum IN (select o.cnum from orders o where o.amt>(select avg(ord.amt) from ord.orders))
+       *
+ERROR at line 1:
+ORA-00904: "C"."NAME": invalid identifier 
+
+
+SQL> select avg(amt) from orders;
+
+  AVG(AMT)                                                                      
+----------                                                                      
+   2665.84                                                                      
+
+SQL> select cnum from orders where amt > (select avg(amt) from orders);
+
+      CNUM                                                                      
+----------                                                                      
+      2003                                                                      
+      2006                                                                      
+      2006                                                                      
+
+SQL> select cname ,rating from customers where cnum IN (select cnum from orders where amt > (select avg(amt) from orders));
+
+CNAME          RATING                                                           
+---------- ----------                                                           
+Liu               200                                                           
+Clemens           100                                                           
+
+SQL> spool off

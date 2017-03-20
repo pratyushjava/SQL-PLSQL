@@ -1,0 +1,57 @@
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select cname,city from customers where rating =(select rating from customers where cname='Hoffman');
+
+CNAME      CITY                                                                 
+---------- ----------                                                           
+Hoffman    London                                                               
+Clemens    London                                                               
+Pereira    Rome                                                                 
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select * from salespeople group by city;
+select * from salespeople group by city
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select sname,city from salespeople group by city;
+select sname,city from salespeople group by city
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select * from salespeople order by city;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1001 Peel       London            .12                                     
+      1004 Motika     London            .11                                     
+      1003 Axelrod    New York           .1                                     
+      1002 Serres     San Jose          .13                                     
+
+SQL> spool off

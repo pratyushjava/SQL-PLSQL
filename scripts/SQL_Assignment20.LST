@@ -1,0 +1,326 @@
+SQL> clear screen
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+
+8 rows selected.
+
+SQL> select distinct cnum,snum,onum,odate from orders;
+
+      CNUM       SNUM       ONUM ODATE                                          
+---------- ---------- ---------- ---------                                      
+      2001       1001       3003 03-OCT-90                                      
+      2007       1004       3002 03-OCT-90                                      
+      2003       1002       3005 03-OCT-90                                      
+      2008       1007       3006 03-OCT-90                                      
+      2004       1002       3007 04-OCT-90                                      
+      2008       1007       3001 03-OCT-90                                      
+      2002       1003       3009 04-OCT-90                                      
+      2004       1002       3010 06-OCT-90                                      
+
+8 rows selected.
+
+SQL> 1.1  Yes
+SP2-0042: unknown command "1.1  Yes" - rest of line ignored.
+SQL> select cname,sum(amt) "Sum_Amt" from orders,customers where orders.cnum=customers.cnum group by cname;
+
+CNAME         Sum_Amt                                                           
+---------- ----------                                                           
+Liu           5160.45                                                           
+Hoffman        767.19                                                           
+Pereira        1900.1                                                           
+Giovanni      1713.23                                                           
+Cisneros      1116.85                                                           
+Grass          1385.7                                                           
+
+6 rows selected.
+
+SQL> 1.2  No
+SP2-0042: unknown command "1.2  No" - rest of line ignored.
+SQL> create view DailyOrders
+  2  as
+  3  select distinct cnum,snum,onum,odate from orders;
+
+View created.
+
+SQL> insert into DailyOrders values(1990,1290,8909,'03-Apr-1990');
+insert into DailyOrders values(1990,1290,8909,'03-Apr-1990')
+            *
+ERROR at line 1:
+ORA-01732: data manipulation operation not legal on this view 
+
+
+SQL> desc orders;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ONUM                                               NUMBER(4)
+ AMT                                                NUMBER(7,2)
+ ODATE                                              DATE
+ CNUM                                               NUMBER(4)
+ SNUM                                               NUMBER(4)
+
+SQL> desc dailyorders;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CNUM                                               NUMBER(4)
+ SNUM                                               NUMBER(4)
+ ONUM                                               NUMBER(4)
+ ODATE                                              DATE
+
+SQL> select * from dailyorders;
+
+      CNUM       SNUM       ONUM ODATE                                          
+---------- ---------- ---------- ---------                                      
+      2001       1001       3003 03-OCT-90                                      
+      2007       1004       3002 03-OCT-90                                      
+      2003       1002       3005 03-OCT-90                                      
+      2008       1007       3006 03-OCT-90                                      
+      2004       1002       3007 04-OCT-90                                      
+      2008       1007       3001 03-OCT-90                                      
+      2002       1003       3009 04-OCT-90                                      
+      2004       1002       3010 06-OCT-90                                      
+
+8 rows selected.
+
+SQL> select * from dailyorders;
+
+      CNUM       SNUM       ONUM ODATE                                          
+---------- ---------- ---------- ---------                                      
+      2001       1001       3003 03-OCT-90                                      
+      2007       1004       3002 03-OCT-90                                      
+      2003       1002       3005 03-OCT-90                                      
+      2008       1007       3006 03-OCT-90                                      
+      2004       1002       3007 04-OCT-90                                      
+      2008       1007       3001 03-OCT-90                                      
+      2002       1003       3009 04-OCT-90                                      
+      2004       1002       3010 06-OCT-90                                      
+
+8 rows selected.
+
+SQL> insert into DailyOrders values(1990,1290,8909,'03-Apr-1990');
+insert into DailyOrders values(1990,1290,8909,'03-Apr-1990')
+            *
+ERROR at line 1:
+ORA-01732: data manipulation operation not legal on this view 
+
+
+SQL> create or replace view DailyOrders
+  2  select cnum,snum,onum,odate from orders;
+select cnum,snum,onum,odate from orders
+*
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> create or replace view DailyOrders
+  2  as
+  3  select cnum,snum,onum,odate from orders;
+
+View created.
+
+SQL> select * from dailyorders;
+
+      CNUM       SNUM       ONUM ODATE                                          
+---------- ---------- ---------- ---------                                      
+      2008       1007       3001 03-OCT-90                                      
+      2001       1001       3003 03-OCT-90                                      
+      2007       1004       3002 03-OCT-90                                      
+      2003       1002       3005 03-OCT-90                                      
+      2008       1007       3006 03-OCT-90                                      
+      2002       1003       3009 04-OCT-90                                      
+      2004       1002       3007 04-OCT-90                                      
+      2004       1002       3010 06-OCT-90                                      
+
+8 rows selected.
+
+SQL> insert into DailyOrders values(1990,1290,8909,'03-Apr-1990');
+
+1 row created.
+
+SQL> select * from dailyorders;
+
+      CNUM       SNUM       ONUM ODATE                                          
+---------- ---------- ---------- ---------                                      
+      2008       1007       3001 03-OCT-90                                      
+      2001       1001       3003 03-OCT-90                                      
+      2007       1004       3002 03-OCT-90                                      
+      2003       1002       3005 03-OCT-90                                      
+      2008       1007       3006 03-OCT-90                                      
+      2002       1003       3009 04-OCT-90                                      
+      2004       1002       3007 04-OCT-90                                      
+      2004       1002       3010 06-OCT-90                                      
+      1990       1290       8909 03-APR-90                                      
+
+9 rows selected.
+
+SQL> create or replace view DailyOrders
+  2  as
+  3  select cnum,snum,onum,odate from orders group by cnum;
+select cnum,snum,onum,odate from orders group by cnum
+            *
+ERROR at line 3:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> create or replace view DailyOrders
+  2  as
+  3  select cnum from orders group by cnum;
+
+View created.
+
+SQL> select * from dailyorders;
+
+      CNUM                                                                      
+----------                                                                      
+      2001                                                                      
+      2007                                                                      
+      1990                                                                      
+      2003                                                                      
+      2004                                                                      
+      2008                                                                      
+      2002                                                                      
+
+7 rows selected.
+
+SQL> update dailyorders set cnum=3000 where cnum=2008;
+update dailyorders set cnum=3000 where cnum=2008
+       *
+ERROR at line 1:
+ORA-01732: data manipulation operation not legal on this view 
+
+
+SQL> create or replace view DailyOrders
+  2  as
+  3  select distinct cnum,snum,onum from orders;
+
+View created.
+
+SQL> insert into DailyOrders values(1990,1290,8909);
+insert into DailyOrders values(1990,1290,8909)
+            *
+ERROR at line 1:
+ORA-01732: data manipulation operation not legal on this view 
+
+
+SQL> create or replace view Commissions
+  2  as
+  3  select snum,comm check(.10 < comm < .20) from salespeople;
+select snum,comm check(.10 < comm < .20) from salespeople
+                 *
+ERROR at line 3:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> create view NullCities as select snum,sname,city from salespeople where city is NULL OR sname BETWEEn 'A' and 'MZ';
+
+View created.
+
+SQL> select * from NullCities;
+
+      SNUM SNAME      CITY                                                      
+---------- ---------- ----------                                                
+      1003 Axelrod    New York                                                  
+      1100 Blanco     San Jose                                                  
+
+SQL> insert into NullCities values(2003,'Ashitosh','Pune');
+
+1 row created.
+
+SQL> select * from NullCities;
+
+      SNUM SNAME      CITY                                                      
+---------- ---------- ----------                                                
+      1003 Axelrod    New York                                                  
+      1100 Blanco     San Jose                                                  
+      2003 Ashitosh   Pune                                                      
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           SNUM       CNUM
+---------- ---------- --------- ---------- ----------
+      3001      18.69 03-OCT-90       1007       2008
+      3003     767.19 03-OCT-90       1001       2001
+      3002     1900.1 03-OCT-90       1004       2007
+      3005    5160.45 03-OCT-90       1002       2003
+      3006    1098.16 03-OCT-90       1007       2008
+      3009    1713.23 04-OCT-90       1003       2002
+      3007      75.75 04-OCT-90       1002       2004
+      3010    1309.95 06-OCT-90       1002       2004
+        10            08-OCT-90         10
+      8909            03-APR-90       1290       1990
+
+10 rows selected.
+
+SQL> create or replace view entryorders
+  2  as
+  3  select onum,amt,nvl(odate,sysdate) "ODATE" ,snum,cnum from orders;
+
+View created.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           SNUM       CNUM
+---------- ---------- --------- ---------- ----------
+      3001      18.69 03-OCT-90       1007       2008
+      3003     767.19 03-OCT-90       1001       2001
+      3002     1900.1 03-OCT-90       1004       2007
+      3005    5160.45 03-OCT-90       1002       2003
+      3006    1098.16 03-OCT-90       1007       2008
+      3009    1713.23 04-OCT-90       1003       2002
+      3007      75.75 04-OCT-90       1002       2004
+      3010    1309.95 06-OCT-90       1002       2004
+        10            08-OCT-90         10
+      8909            03-APR-90       1290       1990
+
+10 rows selected.
+
+SQL> select * from entryorders;
+
+      ONUM        AMT ODATE           SNUM       CNUM
+---------- ---------- --------- ---------- ----------
+      3001      18.69 03-OCT-90       1007       2008
+      3003     767.19 03-OCT-90       1001       2001
+      3002     1900.1 03-OCT-90       1004       2007
+      3005    5160.45 03-OCT-90       1002       2003
+      3006    1098.16 03-OCT-90       1007       2008
+      3009    1713.23 04-OCT-90       1003       2002
+      3007      75.75 04-OCT-90       1002       2004
+      3010    1309.95 06-OCT-90       1002       2004
+        10            08-OCT-90         10
+      8909            03-APR-90       1290       1990
+
+10 rows selected.
+
+SQL> insert into entryorders (onum,amt,snum,cnum) values(12,12,12,12);
+
+1 row created.
+
+SQL> select * from entryorders;
+
+      ONUM        AMT ODATE           SNUM       CNUM
+---------- ---------- --------- ---------- ----------
+      3001      18.69 03-OCT-90       1007       2008
+      3003     767.19 03-OCT-90       1001       2001
+      3002     1900.1 03-OCT-90       1004       2007
+      3005    5160.45 03-OCT-90       1002       2003
+      3006    1098.16 03-OCT-90       1007       2008
+      3009    1713.23 04-OCT-90       1003       2002
+      3007      75.75 04-OCT-90       1002       2004
+      3010    1309.95 06-OCT-90       1002       2004
+        10            08-OCT-90         10
+      8909            03-APR-90       1290       1990
+        12         12 20-MAR-12         12         12
+
+11 rows selected.
+
+SQL> spool off

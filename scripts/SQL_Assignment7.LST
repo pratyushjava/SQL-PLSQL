@@ -1,0 +1,237 @@
+SQL> select count(onum) from orders where odate='03-OCT-1990';
+
+COUNT(ONUM)                                                                     
+-----------                                                                     
+          5                                                                     
+
+SQL> select count(city) from customers where city IS NOT NULL:
+  2  ;
+select count(city) from customers where city IS NOT NULL:
+                                                        *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select count(city) from customers where city IS NOT NULL;
+
+COUNT(CITY)                                                                     
+-----------                                                                     
+          7                                                                     
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * form orders group by cnum;
+select * form orders group by cnum
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select * from orders group by cnum;
+select * from orders group by cnum
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select cnum from orders group by cnum;
+
+      CNUM                                                                      
+----------                                                                      
+      2001                                                                      
+      2006                                                                      
+      2007                                                                      
+      2003                                                                      
+      2004                                                                      
+      2008                                                                      
+      2002                                                                      
+
+7 rows selected.
+
+SQL> select cnum,min(amt) from orders group by cnum;
+
+      CNUM   MIN(AMT)                                                           
+---------- ----------                                                           
+      2001     767.19                                                           
+      2006       4723                                                           
+      2007     1900.1                                                           
+      2003    5160.45                                                           
+      2004      75.75                                                           
+      2008      18.69                                                           
+      2002    1713.23                                                           
+
+7 rows selected.
+
+SQL> select cnum,min(amt),onum from orders group by cnum;
+select cnum,min(amt),onum from orders group by cnum
+                     *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select cnum,min(amt),onum from orders group by cnum,onum;
+
+      CNUM   MIN(AMT)       ONUM                                                
+---------- ---------- ----------                                                
+      2007     1900.1       3002                                                
+      2006       4723       3008                                                
+      2004    1309.95       3010                                                
+      2001     767.19       3003                                                
+      2008    1098.16       3006                                                
+      2006    9891.88       3011                                                
+      2002    1713.23       3009                                                
+      2008      18.69       3001                                                
+      2003    5160.45       3005                                                
+      2004      75.75       3007                                                
+
+10 rows selected.
+
+SQL> select * from custoemrs;
+select * from custoemrs
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select cname from customers where cname LIKE 'G%';
+
+CNAME                                                                           
+----------                                                                      
+Giovanni                                                                        
+Grass                                                                           
+
+SQL> select min(cname) from customers where cname LIKE 'G%';
+
+MIN(CNAME)                                                                      
+----------                                                                      
+Giovanni                                                                        
+
+SQL> select city,max(rating) from customers;
+select city,max(rating) from customers
+       *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select city,max(rating) from customers gropu by city;
+select city,max(rating) from customers gropu by city
+                                             *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select city,max(rating) from customers group by city;
+
+CITY       MAX(RATING)                                                          
+---------- -----------                                                          
+London             100                                                          
+Berlin             300                                                          
+Rome               200                                                          
+San Jose           300                                                          
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select date,count(snum) from orders group date;
+select date,count(snum) from orders group date
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select odate,count(snum) from orders group odate;
+select odate,count(snum) from orders group odate
+                                           *
+ERROR at line 1:
+ORA-00924: missing BY keyword 
+
+
+SQL> select odate,count(snum) from orders group by odate;
+
+ODATE     COUNT(SNUM)                                                           
+--------- -----------                                                           
+04-OCT-90           2                                                           
+05-OCT-90           1                                                           
+03-OCT-90           5                                                           
+06-OCT-90           2                                                           
+
+SQL> select odate,count(distinct snum) from orders group by odate;
+
+ODATE     COUNT(DISTINCTSNUM)                                                   
+--------- -------------------                                                   
+03-OCT-90                   4                                                   
+04-OCT-90                   2                                                   
+05-OCT-90                   1                                                   
+06-OCT-90                   2                                                   
+
+SQL> spool off

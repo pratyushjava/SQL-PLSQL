@@ -1,0 +1,18 @@
+CREATE OR REPLACE PROCEDURE userCategory(age IN number)
+AS
+
+
+
+BEGIN
+
+	IF (age < 18) THEN
+		DBMS_OUTPUT.PUT_LINE('CHILD');
+	ELSIF (age >= 18 AND age < 21) THEN
+		DBMS_OUTPUT.PUT_LINE('MAJOR');
+	ELSE
+		DBMS_OUTPUT.PUT_LINE('ADULT');
+	END IF;
+	
+
+END;
+/

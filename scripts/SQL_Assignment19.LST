@@ -1,0 +1,538 @@
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              300       1003                          
+      2003 Liu        San Jose          200       1004                          
+      2004 Grass      Berlin            300       1004                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              200       1004                          
+
+7 rows selected.
+
+SQL> select cnum from customers where rating=(select max(rating) from customers);
+
+      CNUM                                                                      
+----------                                                                      
+      2002                                                                      
+      2004                                                                      
+      2008                                                                      
+
+SQL> select * from customers where cnum IN (select cnum from custoemrs where rating=(select max(rating) from customers));
+select * from customers where cnum IN (select cnum from custoemrs where rating=(select max(rating) from customers))
+                                                        *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers where cnum IN (select cnum from customers where rating=(select max(rating) from customers));
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2002 Giovanni   Rome              300       1003                          
+      2004 Grass      Berlin            300       1004                          
+      2008 Cisneros   San Jose          300       1007                          
+
+SQL> create view HR_CUST
+  2  AS
+  3  select * from customers where cnum IN (select cnum from customers where rating=(select max(rating) from customers));
+
+View created.
+
+SQL> select * from hr_cust;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2002 Giovanni   Rome              300       1003                          
+      2004 Grass      Berlin            300       1004                          
+      2008 Cisneros   San Jose          300       1007                          
+
+SQL> select * from custoemrs;
+select * from custoemrs
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              300       1003                          
+      2003 Liu        San Jose          200       1004                          
+      2004 Grass      Berlin            300       1004                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              200       1004                          
+
+7 rows selected.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+      1100 Blanco     San Jose                                                  
+
+6 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+
+8 rows selected.
+
+SQL> select count(city) from salespeople group by city;
+
+COUNT(CITY)                                                                     
+-----------                                                                     
+          2                                                                     
+          1                                                                     
+          1                                                                     
+          2                                                                     
+
+SQL> select city,count(city) from salespeople group by city;
+
+CITY       COUNT(CITY)                                                          
+---------- -----------                                                          
+London               2                                                          
+New York             1                                                          
+Barcelona            1                                                          
+San Jose             2                                                          
+
+SQL> create view number_of_salespeople_city
+  2  select city "CITY",count(city) "NO. OF SALESPEOPLE" from salespeople group by city;
+select city "CITY",count(city) "NO. OF SALESPEOPLE" from salespeople group by city
+*
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> create view number_of_salespeople_city
+  2  AS
+  3  select city "CITY",count(city) "NO. OF SALESPEOPLE" from salespeople group by city;
+
+View created.
+
+SQL> select * from number_of_salespeople_city;
+
+CITY       NO. OF SALESPEOPLE                                                   
+---------- ------------------                                                   
+London                      2                                                   
+New York                    1                                                   
+Barcelona                   1                                                   
+San Jose                    2                                                   
+
+SQL> select sname from salespeople;
+
+SNAME                                                                           
+----------                                                                      
+Peel                                                                            
+Serres                                                                          
+Motika                                                                          
+Rifkin                                                                          
+Axelrod                                                                         
+Blanco                                                                          
+
+6 rows selected.
+
+SQL> select s.sname from salespeople s ,customers c;
+
+SNAME                                                                           
+----------                                                                      
+Peel                                                                            
+Peel                                                                            
+Peel                                                                            
+Peel                                                                            
+Peel                                                                            
+Peel                                                                            
+Peel                                                                            
+Serres                                                                          
+Serres                                                                          
+Serres                                                                          
+Serres                                                                          
+
+SNAME                                                                           
+----------                                                                      
+Serres                                                                          
+Serres                                                                          
+Serres                                                                          
+Motika                                                                          
+Motika                                                                          
+Motika                                                                          
+Motika                                                                          
+Motika                                                                          
+Motika                                                                          
+Motika                                                                          
+Rifkin                                                                          
+
+SNAME                                                                           
+----------                                                                      
+Rifkin                                                                          
+Rifkin                                                                          
+Rifkin                                                                          
+Rifkin                                                                          
+Rifkin                                                                          
+Rifkin                                                                          
+Axelrod                                                                         
+Axelrod                                                                         
+Axelrod                                                                         
+Axelrod                                                                         
+Axelrod                                                                         
+
+SNAME                                                                           
+----------                                                                      
+Axelrod                                                                         
+Axelrod                                                                         
+Blanco                                                                          
+Blanco                                                                          
+Blanco                                                                          
+Blanco                                                                          
+Blanco                                                                          
+Blanco                                                                          
+Blanco                                                                          
+
+42 rows selected.
+
+SQL> select s.sname from salespeople s;
+
+SNAME                                                                           
+----------                                                                      
+Peel                                                                            
+Serres                                                                          
+Motika                                                                          
+Rifkin                                                                          
+Axelrod                                                                         
+Blanco                                                                          
+
+6 rows selected.
+
+SQL> select * from custoemrs;
+select * from custoemrs
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              300       1003                          
+      2003 Liu        San Jose          200       1004                          
+      2004 Grass      Berlin            300       1004                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              200       1004                          
+
+7 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+
+8 rows selected.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+      1100 Blanco     San Jose                                                  
+
+6 rows selected.
+
+SQL> select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum;
+
+CNAME      SNAME                                                                
+---------- ----------                                                           
+Hoffman    Peel                                                                 
+Giovanni   Axelrod                                                              
+Liu        Motika                                                               
+Grass      Motika                                                               
+Clemens    Peel                                                                 
+Cisneros   Rifkin                                                               
+Pereira    Motika                                                               
+
+7 rows selected.
+
+SQL> select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum group by s.sname;
+select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum group by s.sname
+       *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum order by s.sname;
+
+CNAME      SNAME                                                                
+---------- ----------                                                           
+Giovanni   Axelrod                                                              
+Grass      Motika                                                               
+Pereira    Motika                                                               
+Liu        Motika                                                               
+Clemens    Peel                                                                 
+Hoffman    Peel                                                                 
+Cisneros   Rifkin                                                               
+
+7 rows selected.
+
+SQL> create view salesperson_with_multiple_customer
+  2  as
+  3  select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum order by s.sname;
+create view salesperson_with_multiple_customer
+            *
+ERROR at line 1:
+ORA-00972: identifier is too long 
+
+
+SQL> create view salesperson_with_multiple_customer
+  2  as
+  3   (select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum order by s.sname);
+create view salesperson_with_multiple_customer
+            *
+ERROR at line 1:
+ORA-00972: identifier is too long 
+
+
+SQL> create view sp_with_cust
+  2  as
+  3   (select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum order by s.sname);
+ (select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum order by s.sname)
+                                                                            *
+ERROR at line 3:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create view salesperson_with_multiple_customer
+  2  as
+  3  select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum order by s.sname;
+create view salesperson_with_multiple_customer
+            *
+ERROR at line 1:
+ORA-00972: identifier is too long 
+
+
+SQL> create view sp_with_cust
+  2  as
+  3  select c.cname,s.sname from customers c,salespeople s where c.snum=s.snum order by s.sname;
+
+View created.
+
+SQL> select * from sp_with_cust;
+
+CNAME      SNAME                                                                
+---------- ----------                                                           
+Giovanni   Axelrod                                                              
+Grass      Motika                                                               
+Pereira    Motika                                                               
+Liu        Motika                                                               
+Clemens    Peel                                                                 
+Hoffman    Peel                                                                 
+Cisneros   Rifkin                                                               
+
+7 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+
+8 rows selected.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+      1100 Blanco     San Jose                                                  
+
+6 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              300       1003                          
+      2003 Liu        San Jose          200       1004                          
+      2004 Grass      Berlin            300       1004                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              200       1004                          
+
+7 rows selected.
+
+SQL> create view sview as
+  2  
+SQL> 
+SQL> select avg(amt) from orders;
+
+  AVG(AMT)                                                                      
+----------                                                                      
+   1505.44                                                                      
+
+SQL> select avg(amt),snum from orders
+  2  group by snum;
+
+  AVG(AMT)       SNUM                                                           
+---------- ----------                                                           
+   1713.23       1003                                                           
+    767.19       1001                                                           
+   2182.05       1002                                                           
+   558.425       1007                                                           
+    1900.1       1004                                                           
+
+SQL> select count(onum),avg(amt),snum from orders
+  2  group by snum;
+
+COUNT(ONUM)   AVG(AMT)       SNUM                                               
+----------- ---------- ----------                                               
+          1    1713.23       1003                                               
+          1     767.19       1001                                               
+          3    2182.05       1002                                               
+          2    558.425       1007                                               
+          1     1900.1       1004                                               
+
+SQL> select avg(amt),count(onum),sname from orders
+  2  group by snum;
+select avg(amt),count(onum),sname from orders
+                            *
+ERROR at line 1:
+ORA-00904: "SNAME": invalid identifier 
+
+
+SQL> select count(onum),avg(amt),snum from orders
+  2  group by snum;
+
+COUNT(ONUM)   AVG(AMT)       SNUM                                               
+----------- ---------- ----------                                               
+          1    1713.23       1003                                               
+          1     767.19       1001                                               
+          3    2182.05       1002                                               
+          2    558.425       1007                                               
+          1     1900.1       1004                                               
+
+SQL> select count(onum),avg(amt),s.sname from orders,salespeople s
+  2  group by snum;
+group by snum
+         *
+ERROR at line 2:
+ORA-00918: column ambiguously defined 
+
+
+SQL> select count(o.onum),avg(o.amt),s.sname from orders o,salespeople s
+  2  group by s.sname;
+
+COUNT(O.ONUM) AVG(O.AMT) SNAME                                                  
+------------- ---------- ----------                                             
+            8    1505.44 Peel                                                   
+            8    1505.44 Motika                                                 
+            8    1505.44 Serres                                                 
+            8    1505.44 Blanco                                                 
+            8    1505.44 Axelrod                                                
+            8    1505.44 Rifkin                                                 
+
+6 rows selected.
+
+SQL> select count(o.onum),avg(o.amt),s.sname from orders o,salespeople s
+  2  where o.snum=s.snum;
+select count(o.onum),avg(o.amt),s.sname from orders o,salespeople s
+                                *
+ERROR at line 1:
+ORA-00937: not a single-group group function 
+
+
+SQL> select count(o.onum),avg(o.amt),s.sname from orders o,salespeople s
+  2  where o.snum=s.snum
+  3  group by s.sname;
+
+COUNT(O.ONUM) AVG(O.AMT) SNAME                                                  
+------------- ---------- ----------                                             
+            1     767.19 Peel                                                   
+            1     1900.1 Motika                                                 
+            3    2182.05 Serres                                                 
+            1    1713.23 Axelrod                                                
+            2    558.425 Rifkin                                                 
+
+SQL> ed
+SP2-0110: Cannot create save file "afiedt.buf"
+SQL> create view avg_tot_sp as
+  2  select count(o.onum),avg(o.amt),s.sname from orders o,salespeople s
+  3  where o.snum=s.snum
+  4  group by s.sname;
+select count(o.onum),avg(o.amt),s.sname from orders o,salespeople s
+       *
+ERROR at line 2:
+ORA-00998: must name this expression with a column alias 
+
+
+SQL> create view avg_tot_sp AS select count(onum) "Total Orders",avg(amt) "Avg Amt",s.sname "Name" from orders,salespeople s
+  2  where o.snum=s.snum
+  3  group by s.sname;
+where o.snum=s.snum
+      *
+ERROR at line 2:
+ORA-00904: "O"."SNUM": invalid identifier 
+
+
+SQL> create view avg_tot_sp as
+  2  select count(o.onum)"Total Orders",avg(o.amt) "Avg Amt",s.sname "Name" from orders o,salespeople s
+  3  where o.snum=s.snum
+  4  group by s.sname;
+
+View created.
+
+SQL> select * from avg_tot_sp;
+
+Total Orders    Avg Amt Name                                                    
+------------ ---------- ----------                                              
+           1     767.19 Peel                                                    
+           1     1900.1 Motika                                                  
+           3    2182.05 Serres                                                  
+           1    1713.23 Axelrod                                                 
+           2    558.425 Rifkin                                                  
+
+SQL> spool off

@@ -1,0 +1,292 @@
+SQL> set autocommit off;
+SQL> set autocommit off;
+SQL> set autocommit on;
+SQL> set autocommit off;
+SQL> insert into salespeople (city,sname,comm,cnum);
+insert into salespeople (city,sname,comm,cnum)
+                                             *
+ERROR at line 1:
+ORA-00926: missing VALUES keyword
+
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM
+---------- ---------- ---------- ----------
+      1001 Peel       London            .12
+      1002 Serres     San Jose          .13
+      1004 Motika     London            .11
+      1007 Rifkin     Barcelona         .15
+      1003 Axelrod    New York           .1
+
+SQL> insert into salespeople (city,sname,comm,snum) values('San Jose','Blanco',N
+ULL,1100);
+
+1 row created.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM
+---------- ---------- ---------- ----------
+      1001 Peel       London            .12
+      1002 Serres     San Jose          .13
+      1004 Motika     London            .11
+      1007 Rifkin     Barcelona         .15
+      1003 Axelrod    New York           .1
+      1100 Blanco     San Jose
+
+6 rows selected.
+
+SQL> insert into salespeople (&city,&sname,&comm,&snum) ;
+Enter value for city: 'san'
+Enter value for sname: 'moh'
+Enter value for comm: NULL
+Enter value for snum: 12
+old   1: insert into salespeople (&city,&sname,&comm,&snum)
+new   1: insert into salespeople ('san','moh',NULL,12)
+insert into salespeople ('san','moh',NULL,12)
+                         *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> insert into salespeople values (&city,&sname,&comm,&snum) ;
+Enter value for city: 'Pune'
+Enter value for sname: 'asd'
+Enter value for comm: 98
+Enter value for snum: 1
+old   1: insert into salespeople values (&city,&sname,&comm,&snum)
+new   1: insert into salespeople values ('Pune','asd',98,1)
+insert into salespeople values ('Pune','asd',98,1)
+                                *
+ERROR at line 1:
+ORA-01722: invalid number
+
+
+SQL> insert into salespeople(city,sname,comm,snum) values (&city,&sname,&comm,&s
+num) ;
+Enter value for city: 'Pune'
+Enter value for sname: 'Mohit'
+Enter value for comm: 90
+Enter value for snum: 11
+old   1: insert into salespeople(city,sname,comm,snum) values (&city,&sname,&com
+m,&snum)
+new   1: insert into salespeople(city,sname,comm,snum) values ('Pune','Mohit',90
+,11)
+insert into salespeople(city,sname,comm,snum) values ('Pune','Mohit',90,11)
+                                                                     *
+ERROR at line 1:
+ORA-01438: value larger than specified precision allowed for this column
+
+
+SQL> insert into salespeople(city,sname,comm,snum) values (&city,&sname,&comm,&s
+num) ;
+Enter value for city: 'Pune'
+Enter value for sname: 'Mohit'
+Enter value for comm: .2
+Enter value for snum: 11
+old   1: insert into salespeople(city,sname,comm,snum) values (&city,&sname,&com
+m,&snum)
+new   1: insert into salespeople(city,sname,comm,snum) values ('Pune','Mohit',.2
+,11)
+
+1 row created.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM
+---------- ---------- ---------- ----------
+      1001 Peel       London            .12
+      1002 Serres     San Jose          .13
+      1004 Motika     London            .11
+      1007 Rifkin     Barcelona         .15
+      1003 Axelrod    New York           .1
+      1100 Blanco     San Jose
+        11 Mohit      Pune               .2
+
+7 rows selected.
+
+SQL> delete from salespeople where snum=11;
+
+1 row deleted.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM
+---------- ---------- ---------- ----------
+      1001 Peel       London            .12
+      1002 Serres     San Jose          .13
+      1004 Motika     London            .11
+      1007 Rifkin     Barcelona         .15
+      1003 Axelrod    New York           .1
+      1100 Blanco     San Jose
+
+6 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM
+---------- ---------- ---------- ---------- ----------
+      2001 Hoffman    London            100       1001
+      2002 Giovanni   Rome              200       1003
+      2003 Liu        San Jose          200       1002
+      2004 Grass      Berlin            300       1002
+      2006 Clemens    London            100       1001
+      2008 Cisneros   San Jose          300       1007
+      2007 Pereira    Rome              100       1004
+
+7 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM
+---------- ---------- ---------- ---------- ----------
+      2001 Hoffman    London            100       1001
+      2002 Giovanni   Rome              200       1003
+      2003 Liu        San Jose          200       1002
+      2004 Grass      Berlin            300       1002
+      2006 Clemens    London            100       1001
+      2008 Cisneros   San Jose          300       1007
+      2007 Pereira    Rome              100       1004
+
+7 rows selected.
+
+SQL> select cnum from customers where cname='Clemens';
+
+      CNUM
+----------
+      2006
+
+SQL> delete from orders where cnum =(select cnum from customers where cname='Cle
+mens');
+
+2 rows deleted.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM
+---------- ---------- --------- ---------- ----------
+      3001      18.69 03-OCT-90       2008       1007
+      3003     767.19 03-OCT-90       2001       1001
+      3002     1900.1 03-OCT-90       2007       1004
+      3005    5160.45 03-OCT-90       2003       1002
+      3006    1098.16 03-OCT-90       2008       1007
+      3009    1713.23 04-OCT-90       2002       1003
+      3007      75.75 04-OCT-90       2004       1002
+      3010    1309.95 06-OCT-90       2004       1002
+
+8 rows selected.
+
+SQL> update customers
+  2  set rating=rating+100
+  3  where city='Rome';
+
+2 rows updated.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM
+---------- ---------- ---------- ---------- ----------
+      2001 Hoffman    London            100       1001
+      2002 Giovanni   Rome              300       1003
+      2003 Liu        San Jose          200       1002
+      2004 Grass      Berlin            300       1002
+      2006 Clemens    London            100       1001
+      2008 Cisneros   San Jose          300       1007
+      2007 Pereira    Rome              200       1004
+
+7 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM
+---------- ---------- ---------- ---------- ----------
+      2001 Hoffman    London            100       1001
+      2002 Giovanni   Rome              300       1003
+      2003 Liu        San Jose          200       1002
+      2004 Grass      Berlin            300       1002
+      2006 Clemens    London            100       1001
+      2008 Cisneros   San Jose          300       1007
+      2007 Pereira    Rome              200       1004
+
+7 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM
+---------- ---------- --------- ---------- ----------
+      3001      18.69 03-OCT-90       2008       1007
+      3003     767.19 03-OCT-90       2001       1001
+      3002     1900.1 03-OCT-90       2007       1004
+      3005    5160.45 03-OCT-90       2003       1002
+      3006    1098.16 03-OCT-90       2008       1007
+      3009    1713.23 04-OCT-90       2002       1003
+      3007      75.75 04-OCT-90       2004       1002
+      3010    1309.95 06-OCT-90       2004       1002
+
+8 rows selected.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM
+---------- ---------- ---------- ----------
+      1001 Peel       London            .12
+      1002 Serres     San Jose          .13
+      1004 Motika     London            .11
+      1007 Rifkin     Barcelona         .15
+      1003 Axelrod    New York           .1
+      1100 Blanco     San Jose
+
+6 rows selected.
+
+SQL> select snum from salespeople where sname='Serres';
+
+      SNUM
+----------
+      1002
+
+SQL> select snum from salespeople where sname='Motika';
+
+      SNUM
+----------
+      1004
+
+SQL> update customers
+  2  set snum=(select snum from salespeople where sname='Motika'
+  3  where snum=(select snum from salespeople where sname='Serres';
+update customers
+*
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> update customers
+  2  set snum=(select snum from salespeople where sname='Motika'
+  3  where snum=(select snum from salespeople where sname='Serres');
+update customers
+*
+ERROR at line 1:
+ORA-00921: unexpected end of SQL command
+
+
+SQL> update customers
+  2  set snum=(select snum from salespeople where sname='Motika')
+  3  where snum=(select snum from salespeople where sname='Serres');
+
+2 rows updated.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM
+---------- ---------- ---------- ---------- ----------
+      2001 Hoffman    London            100       1001
+      2002 Giovanni   Rome              300       1003
+      2003 Liu        San Jose          200       1004
+      2004 Grass      Berlin            300       1004
+      2006 Clemens    London            100       1001
+      2008 Cisneros   San Jose          300       1007
+      2007 Pereira    Rome              200       1004
+
+7 rows selected.
+
+SQL> spool off

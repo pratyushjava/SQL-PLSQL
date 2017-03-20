@@ -1,0 +1,143 @@
+SQL> clear screen
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select onum,amt,odate from orders;
+
+      ONUM        AMT ODATE                                                     
+---------- ---------- ---------                                                 
+      3001      18.69 03-OCT-90                                                 
+      3003     767.19 03-OCT-90                                                 
+      3002     1900.1 03-OCT-90                                                 
+      3005    5160.45 03-OCT-90                                                 
+      3006    1098.16 03-OCT-90                                                 
+      3009    1713.23 04-OCT-90                                                 
+      3007      75.75 04-OCT-90                                                 
+      3008       4723 05-OCT-90                                                 
+      3010    1309.95 06-OCT-90                                                 
+      3011    9891.88 06-OCT-90                                                 
+
+10 rows selected.
+
+SQL> select * from customers where snum=1001;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2006 Clemens    London            100       1001                          
+
+SQL> select city,sname,snum,cnum from salespeople ;
+select city,sname,snum,cnum from salespeople 
+                       *
+ERROR at line 1:
+ORA-00904: "CNUM": invalid identifier 
+
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select city,sname,snum,comm from salespeople ;
+
+CITY       SNAME            SNUM       COMM                                     
+---------- ---------- ---------- ----------                                     
+London     Peel             1001        .12                                     
+San Jose   Serres           1002        .13                                     
+London     Motika           1004        .11                                     
+Barcelona  Rifkin           1007        .15                                     
+New York   Axelrod          1003         .1                                     
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select rating,cname where city='San Jose';
+select rating,cname where city='San Jose'
+                    *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select rating,cname from customers where city='San Jose';
+
+    RATING CNAME                                                                
+---------- ----------                                                           
+       200 Liu                                                                  
+       300 Cisneros                                                             
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select snum,onum from orders;
+
+      SNUM       ONUM                                                           
+---------- ----------                                                           
+      1007       3001                                                           
+      1001       3003                                                           
+      1004       3002                                                           
+      1002       3005                                                           
+      1007       3006                                                           
+      1003       3009                                                           
+      1002       3007                                                           
+      1001       3008                                                           
+      1002       3010                                                           
+      1001       3011                                                           
+
+10 rows selected.
+
+SQL> spool off

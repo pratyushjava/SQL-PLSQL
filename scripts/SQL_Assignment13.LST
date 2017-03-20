@@ -1,0 +1,324 @@
+SQL> clear screen
+
+SQL> select cname,city,rating from customers where rating>=200;
+
+CNAME      CITY           RATING                                                
+---------- ---------- ----------                                                
+Giovanni   Rome              200                                                
+Liu        San Jose          200                                                
+Grass      Berlin            300                                                
+Cisneros   San Jose          300                                                
+
+SQL> select cname,city,rating|"High Rating" from customers where rating>=200;
+select cname,city,rating|"High Rating" from customers where rating>=200
+                        *
+ERROR at line 1:
+ORA-00996: the concatenate operator is ||, not | 
+
+
+SQL> select cname,city,rating||"High Rating" from customers where rating>=200;
+select cname,city,rating||"High Rating" from customers where rating>=200
+                          *
+ERROR at line 1:
+ORA-00904: "High Rating": invalid identifier 
+
+
+SQL> select cname,city,rating||'High Rating' from customers where rating>=200;
+
+CNAME      CITY       RATING||'HIGHRATING'                                      
+---------- ---------- ---------------------------------------------------       
+Giovanni   Rome       200High Rating                                            
+Liu        San Jose   200High Rating                                            
+Grass      Berlin     300High Rating                                            
+Cisneros   San Jose   300High Rating                                            
+
+SQL> select cname,city,rating||' High Rating' from customers where rating>=200;
+
+CNAME      CITY       RATING||'HIGHRATING'                                      
+---------- ---------- ----------------------------------------------------      
+Giovanni   Rome       200 High Rating                                           
+Liu        San Jose   200 High Rating                                           
+Grass      Berlin     300 High Rating                                           
+Cisneros   San Jose   300 High Rating                                           
+
+SQL> select cname,city,rating||' Low Rating' from customers where rating<200;
+
+CNAME      CITY       RATING||'LOWRATING'                                       
+---------- ---------- ---------------------------------------------------       
+Hoffman    London     100 Low Rating                                            
+Clemens    London     100 Low Rating                                            
+Pereira    Rome       100 Low Rating                                            
+
+SQL> select cname,city,rating||' Low Rating' from customers where rating<200
+  2  UNION
+  3  select cname,city,rating||' High Rating' from customers where rating>=200;
+
+CNAME      CITY       RATING||'LOWRATING'                                       
+---------- ---------- ----------------------------------------------------      
+Cisneros   San Jose   300 High Rating                                           
+Clemens    London     100 Low Rating                                            
+Giovanni   Rome       200 High Rating                                           
+Grass      Berlin     300 High Rating                                           
+Hoffman    London     100 Low Rating                                            
+Liu        San Jose   200 High Rating                                           
+Pereira    Rome       100 Low Rating                                            
+
+7 rows selected.
+
+SQL> select cname,city,rating||' Low Rating' from customers where rating<200
+  2  UNION
+  3  select cname,city,rating||' High Rating' from customers where rating>=200;
+
+CNAME      CITY       RATING||'LOWRATING'                                       
+---------- ---------- ----------------------------------------------------      
+Cisneros   San Jose   300 High Rating                                           
+Clemens    London     100 Low Rating                                            
+Giovanni   Rome       200 High Rating                                           
+Grass      Berlin     300 High Rating                                           
+Hoffman    London     100 Low Rating                                            
+Liu        San Jose   200 High Rating                                           
+Pereira    Rome       100 Low Rating                                            
+
+7 rows selected.
+
+SQL> select cname,city,rating||' Low Rating' "RATING" from customers where rating<200
+  2  UNION
+  3  select cname,city,rating||' High Rating' from customers where rating>=200;
+
+CNAME      CITY       RATING                                                    
+---------- ---------- ----------------------------------------------------      
+Cisneros   San Jose   300 High Rating                                           
+Clemens    London     100 Low Rating                                            
+Giovanni   Rome       200 High Rating                                           
+Grass      Berlin     300 High Rating                                           
+Hoffman    London     100 Low Rating                                            
+Liu        San Jose   200 High Rating                                           
+Pereira    Rome       100 Low Rating                                            
+
+7 rows selected.
+
+SQL> select cnum "NO.",cname "NAME" from customers where 1<(select count(onum) from orders where c.cnum=o.cnum);
+select cnum "NO.",cname "NAME" from customers where 1<(select count(onum) from orders where c.cnum=o.cnum)
+                                                                                                   *
+ERROR at line 1:
+ORA-00904: "O"."CNUM": invalid identifier 
+
+
+SQL> select c.cnum "NO.",c.cname "NAME" from customers c where 1<(select count(o.onum) from orders o where c.cnum=o.cnum);
+
+       NO. NAME                                                                 
+---------- ----------                                                           
+      2004 Grass                                                                
+      2006 Clemens                                                              
+      2008 Cisneros                                                             
+
+SQL> select c.cnum "NO.",c.cname "NAME" from salespeople s where 1<(select count(o.onum) from orders o where s.snum=o.snum);
+select c.cnum "NO.",c.cname "NAME" from salespeople s where 1<(select count(o.onum) from orders o where s.snum=o.snum)
+                    *
+ERROR at line 1:
+ORA-00904: "C"."CNAME": invalid identifier 
+
+
+SQL> select s.snum "NO.",s.sname "NAME" from salespeople s where 1<(select count(o.onum) from orders o where s.snum=o.snum);
+
+       NO. NAME                                                                 
+---------- ----------                                                           
+      1001 Peel                                                                 
+      1002 Serres                                                               
+      1007 Rifkin                                                               
+
+SQL> select c.cnum "NO.",c.cname "NAME" from customers c where 1<(select count(o.onum) from orders o where c.cnum=o.cnum)
+  2  UNION
+  3  select s.snum "NO.",s.sname "NAME" from salespeople s where 1<(select count(o.onum) from orders o where s.snum=o.snum)
+  4  orders by NAME;
+orders by NAME
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select c.cnum "NO.",c.cname "NAME" from customers c where 1<(select count(o.onum) from orders o where c.cnum=o.cnum)
+  2  UNION
+  3  select s.snum "NO.",s.sname "NAME" from salespeople s where 1<(select count(o.onum) from orders o where s.snum=o.snum)
+  4  orders by "NAME";
+orders by "NAME"
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> select c.cnum "NO.",c.cname "NAME" from customers c where 1<(select count(o.onum) from orders o where c.cnum=o.cnum)
+  2  UNION
+  3  select s.snum "NO.",s.sname "NAME" from salespeople s where 1<(select count(o.onum) from orders o where s.snum=o.snum)
+  4  order by "NAME";
+
+       NO. NAME                                                                 
+---------- ----------                                                           
+      2008 Cisneros                                                             
+      2006 Clemens                                                              
+      2004 Grass                                                                
+      1001 Peel                                                                 
+      1007 Rifkin                                                               
+      1002 Serres                                                               
+
+6 rows selected.
+
+SQL> select c.cnum "NO.",c.cname "NAME" from customers c where 1<(select count(o.onum) from orders o where c.cnum=o.cnum)
+  2  UNION
+  3  select s.snum "NO.",s.sname "NAME" from salespeople s where 1<(select count(o.onum) from orders o where s.snum=o.snum)
+  4  order by NAME;
+
+       NO. NAME                                                                 
+---------- ----------                                                           
+      2008 Cisneros                                                             
+      2006 Clemens                                                              
+      2004 Grass                                                                
+      1001 Peel                                                                 
+      1007 Rifkin                                                               
+      1002 Serres                                                               
+
+6 rows selected.
+
+SQL> select snum from salespeople;
+
+      SNUM                                                                      
+----------                                                                      
+      1001                                                                      
+      1002                                                                      
+      1004                                                                      
+      1007                                                                      
+      1003                                                                      
+
+SQL> select snum from salespeople where city='San Jose';;
+select snum from salespeople where city='San Jose';
+                                                  *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> select snum from salespeople where city='San Jose';
+
+      SNUM                                                                      
+----------                                                                      
+      1002                                                                      
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select * from customes;
+select * from customes
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select snum from salespeople where city='San Jose';;
+select snum from salespeople where city='San Jose';
+                                                  *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> select snum from salespeople where city='San Jose';
+
+      SNUM                                                                      
+----------                                                                      
+      1002                                                                      
+
+SQL> select cnum from customers where city='San Jose';
+
+      CNUM                                                                      
+----------                                                                      
+      2003                                                                      
+      2008                                                                      
+
+SQL> select onum from orders where odate='03-OCT-90';
+
+      ONUM                                                                      
+----------                                                                      
+      3001                                                                      
+      3003                                                                      
+      3002                                                                      
+      3005                                                                      
+      3006                                                                      
+
+SQL> select snum from salespeople where city='San Jose'
+  2  UNION
+  3  select cnum from customers where city='San Jose'
+  4  UNION
+  5  select onum from orders where odate='03-OCT-90';
+
+      SNUM                                                                      
+----------                                                                      
+      1002                                                                      
+      2003                                                                      
+      2008                                                                      
+      3001                                                                      
+      3002                                                                      
+      3003                                                                      
+      3005                                                                      
+      3006                                                                      
+
+8 rows selected.
+
+SQL> select snum from salespeople where city='San Jose';
+
+      SNUM                                                                      
+----------                                                                      
+      1002                                                                      
+
+SQL> select snum from salespeople where city='San Jose'
+  2  UNION
+  3  select cnum from customers where city='San Jose'
+  4  UNION ALL
+  5  select onum from orders where odate='03-OCT-90';
+
+      SNUM                                                                      
+----------                                                                      
+      1002                                                                      
+      2003                                                                      
+      2008                                                                      
+      3001                                                                      
+      3003                                                                      
+      3002                                                                      
+      3005                                                                      
+      3006                                                                      
+
+8 rows selected.
+
+SQL> spool off

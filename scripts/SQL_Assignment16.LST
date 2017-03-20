@@ -1,0 +1,94 @@
+SQL> create index indexOnum on orders(onum);
+
+Index created.
+
+SQL> create unique index indexOnum on orders(onum);
+create unique index indexOnum on orders(onum)
+                    *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> create unique index uniqueIndexOnum on orders(onum);
+create unique index uniqueIndexOnum on orders(onum)
+                                              *
+ERROR at line 1:
+ORA-01408: such column list already indexed 
+
+
+SQL> create unique index indexOnum on orders(onum);
+create unique index indexOnum on orders(onum)
+                    *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> drop index indexOnum from orders;
+drop index indexOnum from orders
+                     *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> alter table orders drop index indexOnum ;
+alter table orders drop index indexOnum 
+                        *
+ERROR at line 1:
+ORA-00905: missing keyword 
+
+
+SQL> drop index indexOnum;
+
+Index dropped.
+
+SQL> create unique index indexOnum on orders(onum);
+
+Index created.
+
+SQL> create index indexSnum on orders(snum);
+
+Index created.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           SNUM       CNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       1007       2008                           
+      3003     767.19 03-OCT-90       1001       2001                           
+      3002     1900.1 03-OCT-90       1004       2007                           
+      3005    5160.45 03-OCT-90       1002       2003                           
+      3006    1098.16 03-OCT-90       1007       2008                           
+      3009    1713.23 04-OCT-90       1003       2002                           
+      3007      75.75 04-OCT-90       1002       2004                           
+      3010    1309.95 06-OCT-90       1002       2004                           
+        10            08-OCT-90         10                                      
+      8909            03-APR-90       1290       1990                           
+
+10 rows selected.
+
+SQL> select * from custoemrs;
+select * from custoemrs
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              300       1003                          
+      2003 Liu        San Jose          200       1004                          
+      2004 Grass      Berlin            300       1004                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              200       1004                          
+
+7 rows selected.
+
+SQL> create index indexCnumRating on customers(snum,rating);
+
+Index created.
+
+SQL> spool off

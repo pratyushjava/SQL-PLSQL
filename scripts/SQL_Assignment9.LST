@@ -1,0 +1,520 @@
+SQL> select * form orders;
+select * form orders
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select o.amt*s.comm from orders o,salespeople s where o.amt IN (select amt from orders where snum IN (select snum from customers where rating>100));
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+       1.869                                                                    
+      2.8035                                                                    
+      2.0559                                                                    
+      2.4297                                                                    
+      2.2428                                                                    
+     516.045                                                                    
+    774.0675                                                                    
+    567.6495                                                                    
+    670.8585                                                                    
+     619.254                                                                    
+     109.816                                                                    
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+     164.724                                                                    
+    120.7976                                                                    
+    142.7608                                                                    
+    131.7792                                                                    
+     171.323                                                                    
+    256.9845                                                                    
+    188.4553                                                                    
+    222.7199                                                                    
+    205.5876                                                                    
+       7.575                                                                    
+     11.3625                                                                    
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+      8.3325                                                                    
+      9.8475                                                                    
+        9.09                                                                    
+     130.995                                                                    
+    196.4925                                                                    
+    144.0945                                                                    
+    170.2935                                                                    
+     157.194                                                                    
+
+30 rows selected.
+
+SQL> select distinct o.amt*s.comm from orders o,salespeople s where o.amt IN (select amt from orders where snum IN (select snum from customers where rating>100));
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+      2.4297                                                                    
+     619.254                                                                    
+    774.0675                                                                    
+     109.816                                                                    
+       7.575                                                                    
+     157.194                                                                    
+      2.2428                                                                    
+      2.0559                                                                    
+        9.09                                                                    
+    144.0945                                                                    
+    131.7792                                                                    
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+    205.5876                                                                    
+      2.8035                                                                    
+    567.6495                                                                    
+    120.7976                                                                    
+    196.4925                                                                    
+     516.045                                                                    
+    256.9845                                                                    
+      9.8475                                                                    
+     130.995                                                                    
+       1.869                                                                    
+     164.724                                                                    
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+     171.323                                                                    
+      8.3325                                                                    
+    670.8585                                                                    
+    142.7608                                                                    
+     11.3625                                                                    
+    170.2935                                                                    
+    222.7199                                                                    
+    188.4553                                                                    
+
+30 rows selected.
+
+SQL> select * form orders;
+select * form orders
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select * form orders;
+select * form orders
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select distinct o.amt*s.comm from orders o,salespeople s where o.amt IN (select amt from orders where snum IN (select snum from customers where rating>100)) AND s.snum = o.snum;
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+      2.8035                                                                    
+      9.8475                                                                    
+     164.724                                                                    
+     171.323                                                                    
+    170.2935                                                                    
+    670.8585                                                                    
+
+6 rows selected.
+
+SQL> select o.amt*s.comm from orders o,salespeople s where o.amt IN (select amt from orders where snum IN (select snum from customers where rating>100)) AND s.snum = o.snum;
+
+O.AMT*S.COMM                                                                    
+------------                                                                    
+      2.8035                                                                    
+    670.8585                                                                    
+     164.724                                                                    
+     171.323                                                                    
+      9.8475                                                                    
+    170.2935                                                                    
+
+6 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * from cusotmers;
+select * from cusotmers
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select o.onum,c.cname from orders o,customers c where o.cnum=c.cnum;
+
+      ONUM CNAME                                                                
+---------- ----------                                                           
+      3001 Cisneros                                                             
+      3003 Hoffman                                                              
+      3002 Pereira                                                              
+      3005 Liu                                                                  
+      3006 Cisneros                                                             
+      3009 Giovanni                                                             
+      3007 Grass                                                                
+      3008 Clemens                                                              
+      3010 Grass                                                                
+      3011 Clemens                                                              
+
+10 rows selected.
+
+SQL> select o.onum,c.cname,s.sname from orders o,customers c,salespeople s where o.cnum=c.cnum AND ;
+select o.onum,c.cname,s.sname from orders o,customers c,salespeople s where o.cnum=c.cnum AND 
+                                                                                             *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select o.onum,c.cname,s.sname from orders o,customers c,salespeople s where o.cnum=c.cnum AND o.snum=s.snum;
+
+      ONUM CNAME      SNAME                                                     
+---------- ---------- ----------                                                
+      3003 Hoffman    Peel                                                      
+      3009 Giovanni   Axelrod                                                   
+      3005 Liu        Serres                                                    
+      3010 Grass      Serres                                                    
+      3007 Grass      Serres                                                    
+      3011 Clemens    Peel                                                      
+      3008 Clemens    Peel                                                      
+      3006 Cisneros   Rifkin                                                    
+      3001 Cisneros   Rifkin                                                    
+      3002 Pereira    Motika                                                    
+
+10 rows selected.
+
+SQL> select o.onum,c.cname,s.sname from orders o,customers c,salespeople s where o.snum=c.snum AND o.snum=s.snum;
+
+      ONUM CNAME      SNAME                                                     
+---------- ---------- ----------                                                
+      3011 Hoffman    Peel                                                      
+      3008 Hoffman    Peel                                                      
+      3003 Hoffman    Peel                                                      
+      3009 Giovanni   Axelrod                                                   
+      3010 Liu        Serres                                                    
+      3007 Liu        Serres                                                    
+      3005 Liu        Serres                                                    
+      3010 Grass      Serres                                                    
+      3007 Grass      Serres                                                    
+      3005 Grass      Serres                                                    
+      3011 Clemens    Peel                                                      
+
+      ONUM CNAME      SNAME                                                     
+---------- ---------- ----------                                                
+      3008 Clemens    Peel                                                      
+      3003 Clemens    Peel                                                      
+      3006 Cisneros   Rifkin                                                    
+      3001 Cisneros   Rifkin                                                    
+      3002 Pereira    Motika                                                    
+
+16 rows selected.
+
+SQL> select o.onum,c.cname,s.sname from orders o,customers c,salespeople s where o.cnum=c.cnum AND o.snum=s.snum;
+
+      ONUM CNAME      SNAME                                                     
+---------- ---------- ----------                                                
+      3003 Hoffman    Peel                                                      
+      3009 Giovanni   Axelrod                                                   
+      3005 Liu        Serres                                                    
+      3010 Grass      Serres                                                    
+      3007 Grass      Serres                                                    
+      3011 Clemens    Peel                                                      
+      3008 Clemens    Peel                                                      
+      3006 Cisneros   Rifkin                                                    
+      3001 Cisneros   Rifkin                                                    
+      3002 Pereira    Motika                                                    
+
+10 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select * from salespeople;;
+select * from salespeople;
+                         *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> select * from salespeople;
+
+      SNUM SNAME      CITY             COMM                                     
+---------- ---------- ---------- ----------                                     
+      1001 Peel       London            .12                                     
+      1002 Serres     San Jose          .13                                     
+      1004 Motika     London            .11                                     
+      1007 Rifkin     Barcelona         .15                                     
+      1003 Axelrod    New York           .1                                     
+
+SQL> select * from customers;
+
+      CNUM CNAME      CITY           RATING       SNUM                          
+---------- ---------- ---------- ---------- ----------                          
+      2001 Hoffman    London            100       1001                          
+      2002 Giovanni   Rome              200       1003                          
+      2003 Liu        San Jose          200       1002                          
+      2004 Grass      Berlin            300       1002                          
+      2006 Clemens    London            100       1001                          
+      2008 Cisneros   San Jose          300       1007                          
+      2007 Pereira    Rome              100       1004                          
+
+7 rows selected.
+
+SQL> select * from orders;
+
+      ONUM        AMT ODATE           CNUM       SNUM                           
+---------- ---------- --------- ---------- ----------                           
+      3001      18.69 03-OCT-90       2008       1007                           
+      3003     767.19 03-OCT-90       2001       1001                           
+      3002     1900.1 03-OCT-90       2007       1004                           
+      3005    5160.45 03-OCT-90       2003       1002                           
+      3006    1098.16 03-OCT-90       2008       1007                           
+      3009    1713.23 04-OCT-90       2002       1003                           
+      3007      75.75 04-OCT-90       2004       1002                           
+      3008       4723 05-OCT-90       2006       1001                           
+      3010    1309.95 06-OCT-90       2004       1002                           
+      3011    9891.88 06-OCT-90       2006       1001                           
+
+10 rows selected.
+
+SQL> select snum from salespeople where comm>.12;
+
+      SNUM                                                                      
+----------                                                                      
+      1002                                                                      
+      1007                                                                      
+
+SQL> select cnum from customers where snum IN (select snum from salespeople where comm>.12);
+
+      CNUM                                                                      
+----------                                                                      
+      2004                                                                      
+      2003                                                                      
+      2008                                                                      
+
+SQL> select c.cnum from customers c,salespeople s
+  2  where c.snum=s.snum
+  3  and
+  4  s.comm>.12;
+
+      CNUM                                                                      
+----------                                                                      
+      2003                                                                      
+      2004                                                                      
+      2008                                                                      
+
+SQL> select c.cname,s.sname.s.comm from customers c ,salespeople s where cnum IN (select cnum from customers where snum IN (select snum from salespeople where comm>.12);
+select c.cname,s.sname.s.comm from customers c ,salespeople s where cnum IN (select cnum from customers where snum IN (select snum from salespeople where comm>.12)
+                                                                                                                                                                  *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> select c.cname,s.sname.s.comm from customers c ,salespeople s where cnum IN (select cnum from customers where snum IN (select snum from salespeople where comm>.12));
+select c.cname,s.sname.s.comm from customers c ,salespeople s where cnum IN (select cnum from customers where snum IN (select snum from salespeople where comm>.12))
+               *
+ERROR at line 1:
+ORA-00904: "S"."SNAME"."S"."COMM": invalid identifier 
+
+
+SQL> select c.cname,s.sname,s.comm from customers c,salespeople s where c.snum=s.snum AND s.comm>.12;
+
+CNAME      SNAME            COMM                                                
+---------- ---------- ----------                                                
+Liu        Serres            .13                                                
+Grass      Serres            .13                                                
+Cisneros   Rifkin            .15                                                
+
+SQL> spool off
