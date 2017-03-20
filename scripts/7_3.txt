@@ -1,0 +1,16 @@
+declare
+  exp_check exception;
+ cursor c1 is (select first_name ,hire_date from employees);
+begin
+   for rec in c1
+     loop
+     if ( trunc(months_between(sysdate,rec.hire_date)/12) <2) then
+     raise exp_check;
+     end if;
+     insert into temp22(first_name,expr) values(rec.first_name,trunc(months_between(sysdate,rec.hire_date)/12));
+     commit;
+     end loop;
+     exception
+     when exp_check then
+        dbms_output.put_line('employee experience is below 2 years');
+ end;
